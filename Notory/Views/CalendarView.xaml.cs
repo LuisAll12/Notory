@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Notory
+namespace Notory.Views
 {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Interaktionslogik für CalendarView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CalendarView : Window
     {
-        public MainWindow()
+        public CalendarView()
         {
             InitializeComponent();
         }
