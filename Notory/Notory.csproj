@@ -60,11 +60,13 @@
     <Compile Include="Models\CalendarPost.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\NoteCategory.cs" />
+    <Compile Include="ViewModels\Calender\CalendarEditPanelViewModel.cs" />
     <Compile Include="ViewModels\CalendarViewModel.cs" />
+    <Compile Include="ViewModels\Calender\DaySceduleViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NotesViewModel.cs" />
     <Compile Include="ViewModels\NoteViewModel.cs" />
-    <Compile Include="ViewModels\PostViewModel.cs" />
+    <Compile Include="ViewModels\Calender\PostViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\CalendarEditPanel.xaml.cs">
       <DependentUpon>CalendarEditPanel.xaml</DependentUpon>
@@ -77,6 +79,9 @@
     </Compile>
     <Compile Include="Views\NotesView.xaml.cs">
       <DependentUpon>NotesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PostView.xaml.cs">
+      <DependentUpon>PostView.xaml</DependentUpon>
     </Compile>
     <Page Include="Styles\Colors.xaml">
       <SubType>Designer</SubType>
@@ -122,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NotesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PostView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

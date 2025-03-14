@@ -35,5 +35,25 @@ namespace Notory
                 viewModel.NotesVM.SelectedNoteCommand.Execute(e.NewValue);
             }
         }
+
+        private void CloseBtn_Click(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        private void HideBtn_Click(Object sender, MouseButtonEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+        }
     }
 }

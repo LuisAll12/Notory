@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Notory.ViewModels
+namespace Notory.ViewModels.Calender
 {
     internal class PostViewModel
     {

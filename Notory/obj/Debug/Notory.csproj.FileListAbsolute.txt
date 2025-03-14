@@ -28,3 +28,5 @@ C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\obj\Debug\Notory.cs
 C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\obj\Debug\Notory.csproj.CoreCompileInputs.cache
 C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\obj\Debug\Notory.exe
 C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\obj\Debug\Notory.pdb
+C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\obj\Debug\Views\PostView.g.cs
+C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\obj\Debug\Views\PostView.baml

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Notory"
              xmlns:viewModel="clr-namespace:Notory.ViewModels"
+             xmlns:CalendarViewModel="clr-namespace:Notory.ViewModels.Calender"
              xmlns:view="clr-namespace:Notory.Views"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
@@ -20,7 +21,17 @@
             <DataTemplate DataType="{x:Type viewModel:NotesViewModel}">
                 <view:NotesView/>
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type CalendarViewModel:CalendarEditPanelViewModel}">
+                <view:CalendarEditPanel/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type CalendarViewModel:PostViewModel}">
+                <view:PostView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type CalendarViewModel:DaySceduleViewModel}">
+                <view:DayScheduleView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
