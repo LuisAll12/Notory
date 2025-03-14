@@ -21,7 +21,7 @@
 
     <!-- Obere Leiste (z. B. Datum, Titel) -->
     <Border Grid.Row="0" Background="#0f0f11" Padding="10">
-      <TextBlock Text="ToolBar" Foreground="White" FontSize="25"/>
+      <TextBlock Text="ToolBar" Foreground="#d1d3d7" FontSize="25"/>
     </Border>
 
 

@@ -20,10 +20,10 @@
   <Window.DataContext>
     <viewModel:MainViewModel/>
   </Window.DataContext>
-  <Grid>
+  <Border CornerRadius="20" Background="#1b1c21" SnapsToDevicePixels="True" Padding="0">
     <!-- Sidebar + Main Area -->
     <Grid>
-      <Grid.ColumnDefinitions>
+      <Grid.ColumnDefinitions> 
         <ColumnDefinition Width="240"/>
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
@@ -72,5 +72,5 @@
                             Width="Auto"
                             Height="Auto"/>
     </Grid>
-  </Grid>
+  </Border>
 </Window>
