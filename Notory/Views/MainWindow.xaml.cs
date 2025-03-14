@@ -24,7 +24,7 @@ namespace Notory
         public MainWindow()
         {
             InitializeComponent();
-            var viewModel = (NotesViewModel)DataContext;
+            var viewModel = (MainViewModel)DataContext;
             viewModel.IsNotesViewVisible = true;
         }
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

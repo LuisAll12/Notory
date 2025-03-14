@@ -17,7 +17,7 @@ namespace Notory.Views
     /// <summary>
     /// Interaktionslogik für NotesView.xaml
     /// </summary>
-    public partial class NotesView : Window
+    public partial class NotesView : UserControl
     {
         public NotesView()
         {

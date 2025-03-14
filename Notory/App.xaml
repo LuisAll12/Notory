@@ -13,6 +13,14 @@
                 <ResourceDictionary Source="Styles/Typography.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <DataTemplate DataType="{x:Type viewModel:CalendarViewModel}">
+                <view:CalendarView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:NotesViewModel}">
+                <view:NotesView/>
+            </DataTemplate>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

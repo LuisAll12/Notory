@@ -10,6 +10,10 @@ namespace Notory.ViewModels
 {
     internal class MainViewModel : ViewModelBase
     {
+        public RelayCommand SwitchToCalendarCommand { get; set; }
+        public RelayCommand SwitchToNotesCommand { get; set; }
+
+
         public CalendarViewModel CalendarVM { get; }
         public NotesViewModel NotesVM { get; }
 
@@ -20,8 +24,6 @@ namespace Notory.ViewModels
             set => SetProperty(ref _currentView, value);
         }
 
-        public ICommand SwitchToCalendarCommand { get; }
-        public ICommand SwitchToNotesCommand { get; }
 
         private bool _isNotesViewVisible;  // Deklaration des privaten Backing-Fields
 
@@ -42,12 +44,22 @@ namespace Notory.ViewModels
         {
             CalendarVM = new CalendarViewModel();
             NotesVM = new NotesViewModel();
-            SwitchToCalendarCommand = new RelayCommand(() => CurrentView = CalendarVM);
-            SwitchToNotesCommand = new RelayCommand(() => CurrentView = NotesVM);
+
             CurrentView = CalendarVM;
 
-            // Optional: Initialisieren von IsNotesViewVisible, falls nötig
-            IsNotesViewVisible = true; // Zum Beispiel, dass die Notes-Ansicht anfangs sichtbar ist
+            SwitchToCalendarCommand = new RelayCommand(o =>
+            {
+                CurrentView = CalendarVM;
+            });
+                
+            SwitchToNotesCommand = new RelayCommand(p => 
+            {
+                CurrentView = NotesVM;
+            });
+
+
+
+            IsNotesViewVisible = false; 
         }
     }
 }
