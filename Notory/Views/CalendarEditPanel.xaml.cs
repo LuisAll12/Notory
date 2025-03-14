@@ -17,7 +17,7 @@ namespace Notory.Views
     /// <summary>
     /// Interaktionslogik für CalendarEditPanel.xaml
     /// </summary>
-    public partial class CalendarEditPanel : Window
+    public partial class CalendarEditPanel : UserControl
     {
         public CalendarEditPanel()
         {

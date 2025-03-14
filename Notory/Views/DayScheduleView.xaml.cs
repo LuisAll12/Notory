@@ -17,7 +17,7 @@ namespace Notory.Views
     /// <summary>
     /// Interaktionslogik für DayScheduleView.xaml
     /// </summary>
-    public partial class DayScheduleView : Window
+    public partial class DayScheduleView : UserControl
     {
         public DayScheduleView()
         {

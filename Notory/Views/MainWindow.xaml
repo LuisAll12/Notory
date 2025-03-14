@@ -6,71 +6,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:Notory.ViewModels"
         mc:Ignorable="d"
-        Title="Notory" Height="800" Width="1400"
+        Title="Notory" Height="859" Width="1413"
         ResizeMode="CanResizeWithGrip"
         Background="#1b1c21"
         WindowStyle="None"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen">
 
-    <Window.Resources>
-        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-    </Window.Resources>
-    
-    <Window.DataContext>
-        <viewModel:MainViewModel/>
-    </Window.DataContext>
+  <Window.Resources>
+    <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+  </Window.Resources>
+
+  <Window.DataContext>
+    <viewModel:MainViewModel/>
+  </Window.DataContext>
+  <Grid>
+    <!-- Sidebar + Main Area -->
     <Grid>
-        <!-- Sidebar + Main Area -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="240"/>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="240"/>
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
 
-            <!-- Left Sidebar (Static) -->
-            <Border Background="#0f0f11">
-                <DockPanel LastChildFill="True">
-                    <StackPanel>
-                        <!-- Top macos-style Buttons -->
-                    <StackPanel Orientation="Horizontal" Margin="10,10,10,20">
-                        <Ellipse Fill="#FF5F56" Width="12" Height="12" MouseDown="CloseBtn_Click"/>
-                        <Ellipse Fill="#FFBD2E" Width="12" Height="12" Margin="8,0" MouseDown="HideBtn_Click"/>
-                        <Ellipse Fill="#27C93F" Width="12" Height="12" MouseDown="MaximizeButton_Click"/>
-                    </StackPanel>
+      <!-- Left Sidebar (Static) -->
+      <Border Background="#0f0f11">
+        <DockPanel LastChildFill="True">
+          <StackPanel>
+            <!-- Top macos-style Buttons -->
+            <StackPanel Orientation="Horizontal" Margin="10,10,10,20">
+              <Ellipse Fill="#FF5F56" Width="12" Height="12" MouseDown="CloseBtn_Click"/>
+              <Ellipse Fill="#FFBD2E" Width="12" Height="12" Margin="8,0" MouseDown="HideBtn_Click"/>
+              <Ellipse Fill="#27C93F" Width="12" Height="12" MouseDown="MaximizeButton_Click"/>
+            </StackPanel>
 
-                    <!-- Navigation Buttons -->
-                        <StackPanel>
-                            <Button Style="{StaticResource NavButtonStyle}" Content="📅  Calendar" Command="{Binding SwitchToCalendarCommand}" />
-                            <Button Style="{StaticResource NavButtonStyle}" Content="📝  Notes" Command="{Binding SwitchToNotesCommand}" />
-                        </StackPanel>
-                        <!-- Notes Category Tree -->
-                        <TreeView Margin="10"
+            <!-- Navigation Buttons -->
+            <StackPanel>
+              <Button Style="{StaticResource NavButtonStyle}" Content="📅  Calendar" Command="{Binding SwitchToCalendarCommand}" />
+              <Button Style="{StaticResource NavButtonStyle}" Content="📝  Notes" Command="{Binding SwitchToNotesCommand}" />
+            </StackPanel>
+            <!-- Notes Category Tree -->
+            <TreeView Margin="10"
                                   ItemsSource="{Binding NotesViewModel.Categories}"
                                   SelectedItemChanged="TreeView_SelectedItemChanged"
                                   Visibility="{Binding IsNotesViewVisible, Converter={StaticResource BoolToVisibilityConverter}}">
-                            <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding Notes}">
-                                <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="White" />
-                                <HierarchicalDataTemplate.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Title}" Foreground="#CCCCCC" />
-                                    </DataTemplate>
-                                </HierarchicalDataTemplate.ItemTemplate>
-                            </HierarchicalDataTemplate>
-                        </TreeView.ItemTemplate>
-                    </TreeView>
-                    </StackPanel>
-                    
-                </DockPanel>
-            </Border>
+              <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Notes}">
+                  <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="White" />
+                  <HierarchicalDataTemplate.ItemTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{Binding Title}" Foreground="#CCCCCC" />
+                    </DataTemplate>
+                  </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+              </TreeView.ItemTemplate>
+            </TreeView>
+          </StackPanel>
 
-            <!-- Main Content Area -->
-            <ContentControl Grid.Column="1" Content="{Binding CurrentView}" 
+        </DockPanel>
+      </Border>
+
+      <!-- Main Content Area -->
+      <ContentControl Grid.Column="1" Content="{Binding CurrentView}" 
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Width="Auto"
                             Height="Auto"/>
-        </Grid>
     </Grid>
+  </Grid>
 </Window>

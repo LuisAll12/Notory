@@ -34,5 +34,25 @@ namespace Notory.ViewModels
             set => SetProperty(ref _postview, value);
         }
 
+    private object calendarEditPanelVM;
+
+    public object CalendarEditPanelVM { get => calendarEditPanelVM; set => SetProperty(ref calendarEditPanelVM, value); }
+
+    private object dayScheduleView;
+
+    public object DayScheduleView { get => dayScheduleView; set => SetProperty(ref dayScheduleView, value); }
+
+    public CalendarViewModel()
+    {
+      EditPanelVM = new CalendarEditPanelViewModel();
+      DaySceduleVM = new DaySceduleViewModel();
+      PostVM = new PostViewModel();
+
+      // Falls du die Views über ContentControl anzeigen willst, musst du ihnen ViewModels zuweisen
+      CalendarEditPanelVM = EditPanelVM;
+      DayScheduleView = DaySceduleVM;
+      PostView = PostVM;
     }
+
+  }
 }

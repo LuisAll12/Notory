@@ -7,58 +7,59 @@
         xmlns:viewModel="clr-namespace:Notory.ViewModels"
         xmlns:Views="clr-namespace:Notory.Views"
         mc:Ignorable="d">
-    <UserControl.DataContext>
-        <viewModel:CalendarViewModel/>
-    </UserControl.DataContext>
-    <Grid>
-        <!-- Hauptlayout: 2 Rows -->
+  <UserControl.DataContext>
+    <viewModel:CalendarViewModel/>
+  </UserControl.DataContext>
+  <Grid>
+    <!-- Hauptlayout: 2 Rows -->
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <!-- Top-Leiste -->
+      <RowDefinition Height="*"/>
+      <!-- Hauptinhalt -->
+    </Grid.RowDefinitions>
+
+    <!-- Obere Leiste (z. B. Datum, Titel) -->
+    <Border Grid.Row="0" Background="#0f0f11" Padding="10">
+      <TextBlock Text="ToolBar" Foreground="White" FontSize="25"/>
+    </Border>
+
+
+    <!-- Unterer Bereich mit 2 Columns -->
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="21*"/>
+        <!-- Linke Seite: Kalender + Termine -->
+        <ColumnDefinition Width="40*"/>
+        <!-- Rechte Seite: Details -->
+      </Grid.ColumnDefinitions>
+
+      <!-- Linke Seite: 2 Rows -->
+      <Grid Grid.Column="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- Top-Leiste -->
-            <RowDefinition Height="*"/>
-            <!-- Hauptinhalt -->
+          <RowDefinition Height="Auto"/>
+          <!-- Kalender -->
+          <RowDefinition Height="*"/>
+          <!-- Termine -->
         </Grid.RowDefinitions>
 
-        <!-- Obere Leiste (z. B. Datum, Titel) -->
-        <Border Grid.Row="0" Background="DarkSlateBlue" Padding="10">
-            <TextBlock Text="ToolBar" Foreground="White" FontSize="25"/>
+        <!-- Kalenderbereich -->
+        <Border Grid.Row="0" Background="#1b1c21" Padding="10">
+          <ContentControl Content="{Binding CalendarEditPanelVM}"/>
+          <!-- Hier kannst du deinen Kalender-UserControl oder View einfügen -->
         </Border>
 
-        <!-- Unterer Bereich mit 2 Columns -->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <!-- Linke Seite: Kalender + Termine -->
-                <ColumnDefinition Width="3*"/>
-                <!-- Rechte Seite: Details -->
-            </Grid.ColumnDefinitions>
+        <!-- Termine (Zeitliche Ansicht) -->
+        <Border Grid.Row="1" Background="#1b1c21" Padding="10" >
+          <ContentControl Content="{Binding DayScheduleView}"/>
+          <!-- Z. B. StackPanel mit Terminen -->
+        </Border>
+      </Grid>
 
-            <!-- Linke Seite: 2 Rows -->
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <!-- Kalender -->
-                    <RowDefinition Height="*"/>
-                    <!-- Termine -->
-                </Grid.RowDefinitions>
-
-                <!-- Kalenderbereich -->
-                <Border Grid.Row="0" Background="#222" Padding="10" Margin="5">
-                    <ContentControl Content="{Binding CalendarEditPanelVM}"/>
-                    <!-- Hier kannst du deinen Kalender-UserControl oder View einfügen -->
-                </Border>
-
-                <!-- Termine (Zeitliche Ansicht) -->
-                <Border Grid.Row="1" Background="#333" Padding="10" Margin="5">
-                    <TextBlock Text="Tagesansicht / Termine..." Foreground="White"/>
-                    <!-- Z. B. StackPanel mit Terminen -->
-                </Border>
-            </Grid>
-
-            <!-- Rechte Seite: Detailansicht -->
-            <Border Grid.Column="1" Background="#111" Padding="10" Margin="5">
-                <TextBlock Text="Details zum Termin / Notizen etc." Foreground="White"/>
-            </Border>
-        </Grid>
+      <!-- Rechte Seite: Detailansicht -->
+      <Border Grid.Column="1" Background="#25252d" Padding="10" >
+        <ContentControl Content="{Binding PostView}"/>
+      </Border>
     </Grid>
+  </Grid>
 </UserControl>
