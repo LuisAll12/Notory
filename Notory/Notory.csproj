@@ -62,7 +62,7 @@
     <Compile Include="Models\NoteCategory.cs" />
     <Compile Include="ViewModels\Calender\CalendarEditPanelViewModel.cs" />
     <Compile Include="ViewModels\CalendarViewModel.cs" />
-    <Compile Include="ViewModels\Calender\DaySceduleViewModel.cs" />
+    <Compile Include="ViewModels\Calender\DayScheduleViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NotesViewModel.cs" />
     <Compile Include="ViewModels\NoteViewModel.cs" />

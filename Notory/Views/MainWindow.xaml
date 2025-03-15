@@ -18,7 +18,7 @@
   </Window.Resources>
 
   <Window.DataContext>
-    <viewModel:MainViewModel/>
+        <viewModel:MainViewModel/>
   </Window.DataContext>
   <Border CornerRadius="20" Background="#1b1c21" SnapsToDevicePixels="True" Padding="0">
     <!-- Sidebar + Main Area -->
@@ -41,7 +41,7 @@
 
             <!-- Navigation Buttons -->
             <StackPanel>
-              <Button Style="{StaticResource NavButtonStyle}" Content="📅  Calendar" Command="{Binding SwitchToCalendarCommand}" />
+              <Button Style="{StaticResource NavButtonStyle}" Content="📅  Calendar" Command="{Binding SwitchToCalendarCommand}"/>
               <Button Style="{StaticResource NavButtonStyle}" Content="📝  Notes" Command="{Binding SwitchToNotesCommand}" />
             </StackPanel>
             <!-- Notes Category Tree -->

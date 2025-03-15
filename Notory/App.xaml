@@ -28,7 +28,7 @@
             <DataTemplate DataType="{x:Type CalendarViewModel:PostViewModel}">
                 <view:PostView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type CalendarViewModel:DaySceduleViewModel}">
+            <DataTemplate DataType="{x:Type CalendarViewModel:DayScheduleViewModel}">
                 <view:DayScheduleView/>
             </DataTemplate>
 
