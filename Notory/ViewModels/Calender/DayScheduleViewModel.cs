@@ -14,25 +14,25 @@ namespace Notory.ViewModels.Calender
     private DateTime _filterDate;
     public DateTime FilterDate
     {
-      get { return _filterDate; }
-      set
-      {
-        if (_filterDate != value)
+        get => _filterDate;
+        set
         {
-          _filterDate = value;
-          OnPropertyChanged(nameof(FilterDate));
-          UpdateEntries(); // Filterfunktion neu laden
+            if (_filterDate != value)
+            {
+                _filterDate = value;
+                OnPropertyChanged(nameof(FilterDate));
+                UpdateEntries(); // <- HIER passiert das Magic ✨
+            }
         }
-      }
     }
 
-    public ObservableCollection<TimeLineEntry> Entries { get; set; }
+        public ObservableCollection<TimeLineEntry> Entries { get; set; }
 
     private readonly CalendarEditPanelViewModel _calendarEditPanelViewModel;
 
-    public DayScheduleViewModel()
+    public DayScheduleViewModel(CalendarEditPanelViewModel calendarEditPanelViewModel)
     {
-      _calendarEditPanelViewModel = new CalendarEditPanelViewModel();
+      _calendarEditPanelViewModel = calendarEditPanelViewModel;
 
       // Initialisiere die Entries-Collection
       Entries = new ObservableCollection<TimeLineEntry>();
@@ -61,9 +61,9 @@ namespace Notory.ViewModels.Calender
       // Erstelle eine unsortierte Liste von Einträgen
       var entries = new ObservableCollection<TimeLineEntry>
             {
-                new TimeLineEntry {Date = new DateTime(2025, 3, 15), TimeFrom = "10:00", TimeTo = "11:00", Title = "Design System Ref...", Subtitle = "10 AM – 11 AM" },
+                new TimeLineEntry {Date = FilterDate, TimeFrom = "10:00", TimeTo = "11:00", Title = "Design System Ref...", Subtitle = FilterDate.ToString() },
                 new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "09:00", TimeTo = "09:30", Title = "Daily Team Standup", Subtitle = "" },
-                new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "12:00", TimeTo = "13:00", Title = "Lunch time", Subtitle = "12 PM – 1 PM" },
+                new TimeLineEntry {Date = new DateTime(2025, 3, 14), TimeFrom = "12:00", TimeTo = "13:00", Title = "Lunch time", Subtitle = "12 PM – 1 PM" },
                 new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "13:00", TimeTo = "14:00", Title = "Dentist Appointment", Subtitle = "" },
                 new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "15:00", TimeTo = "16:00", Title = "Spirit Planning", Subtitle = "4 PM – 4 PM" },
                 new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "17:00", TimeTo = "17:30", Title = "End of day check-in", Subtitle = "" },
@@ -74,6 +74,7 @@ namespace Notory.ViewModels.Calender
                 new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "20:00", TimeTo = "20:30", Title = "", Subtitle = "" }
             };
 
+            FilterDate = new DateTime(2025, 3, 14);
       // Filtere die Einträge nach dem aktuellen FilterDate
       var filteredEntries = entries
           .Where(e => e.Date.Date == FilterDate.Date) // Nur Einträge mit dem Filterdatum

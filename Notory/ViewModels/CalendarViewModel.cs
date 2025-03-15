@@ -48,7 +48,7 @@ namespace Notory.ViewModels
     {
       EditPanelVM = new CalendarEditPanelViewModel();
 
-      DaySceduleVM = new DayScheduleViewModel();
+      DaySceduleVM = new DayScheduleViewModel(EditPanelVM);
 
       PostVM = new PostViewModel();
 
@@ -56,5 +56,7 @@ namespace Notory.ViewModels
       DayScheduleView = DaySceduleVM;
       PostView = PostVM;
     }
+
+
   }
 }

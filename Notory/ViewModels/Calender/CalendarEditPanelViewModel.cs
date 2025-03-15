@@ -27,11 +27,14 @@ namespace Notory.ViewModels.Calender
 
         public DateTime SelectedDate
         {
-            get { return _selectedDate; }
-            private set
+            get => _selectedDate;
+            set
             {
-                _selectedDate = value;
-                OnPropertyChanged(nameof(SelectedDate));
+                if (_selectedDate != value)
+                {
+                    _selectedDate = value;
+                    OnPropertyChanged(nameof(SelectedDate)); //<--- wichtig!
+                }
             }
         }
 
@@ -139,7 +142,7 @@ namespace Notory.ViewModels.Calender
                 SelectedDate = new DateTime(CurrentDate.Year, CurrentDate.Month, selectedDay);
                 UpdateCalendar();
 
-                MessageBox.Show($"Selected Date: {CurrentDate.ToString("MMMM")} {calendarDay.Day}, {CurrentDate.Year}");
+                MessageBox.Show($"Selected Date:{SelectedDate}");
             }
         }
 

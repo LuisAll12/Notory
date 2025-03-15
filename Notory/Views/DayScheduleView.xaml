@@ -6,9 +6,7 @@
              xmlns:local="clr-namespace:Notory.Helpers"
              xmlns:viewModel="clr-namespace:Notory.ViewModels.Calender"
              mc:Ignorable="d">
-    <UserControl.DataContext>
-        <viewModel:DayScheduleViewModel/>
-    </UserControl.DataContext>
+
     <UserControl.Resources>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </UserControl.Resources>

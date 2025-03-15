@@ -25,6 +25,11 @@ namespace Notory.Views
         {
             InitializeComponent();
         }
-       
+        public DayScheduleView(CalendarEditPanelViewModel calendarEditPanelViewModel)
+        {
+            InitializeComponent();
+            this.DataContext = new DayScheduleViewModel(calendarEditPanelViewModel);
+        }
+
     }
 }
