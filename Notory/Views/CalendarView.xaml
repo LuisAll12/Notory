@@ -11,22 +11,9 @@
     <viewModel:CalendarViewModel/>
   </UserControl.DataContext>
   <Grid>
-    <!-- Hauptlayout: 2 Rows -->
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <!-- Top-Leiste -->
-      <RowDefinition Height="*"/>
-      <!-- Hauptinhalt -->
-    </Grid.RowDefinitions>
-
-    <!-- Obere Leiste (z. B. Datum, Titel) -->
-    <Border Grid.Row="0" Background="#0f0f11" Padding="10">
-      <TextBlock Text="ToolBar" Foreground="#d1d3d7" FontSize="25"/>
-    </Border>
-
 
     <!-- Unterer Bereich mit 2 Columns -->
-    <Grid Grid.Row="1">
+    <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="21*"/>
         <!-- Linke Seite: Kalender + Termine -->
@@ -44,20 +31,20 @@
         </Grid.RowDefinitions>
 
         <!-- Kalenderbereich -->
-        <Border Grid.Row="0" Background="#1b1c21" Padding="10">
+        <Border Grid.Row="0" Background="#1b1c21">
           <ContentControl Content="{Binding CalendarEditPanelVM}"/>
           <!-- Hier kannst du deinen Kalender-UserControl oder View einfügen -->
         </Border>
 
         <!-- Termine (Zeitliche Ansicht) -->
-        <Border Grid.Row="1" Background="#1b1c21" Padding="10" >
+        <Border Grid.Row="1" Background="#1b1c21" >
           <ContentControl Content="{Binding DayScheduleView}"/>
           <!-- Z. B. StackPanel mit Terminen -->
         </Border>
       </Grid>
 
       <!-- Rechte Seite: Detailansicht -->
-      <Border Grid.Column="1" Background="#25252d" Padding="10" >
+      <Border Grid.Column="1" Background="#25252d" >
         <ContentControl Content="{Binding PostView}"/>
       </Border>
     </Grid>

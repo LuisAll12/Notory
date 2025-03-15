@@ -5,62 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Notory.Views"
         mc:Ignorable="d">
-  <Grid Background="Transparent">
-    <!-- Header for Month and Year -->
-    <TextBlock x:Name="MonthYearText" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" Margin="0,20,0,0" Foreground="#FF333333"/>
+    <UserControl.Resources>
+        <ControlTemplate x:Key="RoundButtonTemplate" TargetType="Button">
+            <Border CornerRadius="3"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
+        </ControlTemplate>
+    </UserControl.Resources>
 
-    <!-- Navigation Buttons -->
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,70,0,0">
-            <Button x:Name="PrevMonthButton" Content="&lt;" Click="PrevMonthButton_Click" Width="40" Height="40" Foreground="#dde1e6" FontSize="18" Margin="5">
-                <Button.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#764ba2" Offset="0.0" />
-                        <GradientStop Color="#667eea" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Button.Background>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
+    
+    <Grid Background="Transparent">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Kalender -->
+            <RowDefinition Height="*"/>
+            <!-- Termine -->
+        </Grid.RowDefinitions>
+        <!-- Header for Month and Year -->
+        <Grid Grid.Row="0"  Background="#0f0f11">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
+                <Button x:Name="PrevMonthButton" Content="&lt;" Click="PrevMonthButton_Click" Width="40" Height="40" Foreground="#dde1e6" FontSize="18" Margin="5">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#764ba2" Offset="0.0" />
+                            <GradientStop Color="#667eea" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
                     BorderBrush="{TemplateBinding BorderBrush}" 
                     CornerRadius="10">
-                            <ContentPresenter HorizontalAlignment="Center" 
+                                <ContentPresenter HorizontalAlignment="Center" 
                                           VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button x:Name="NextMonthButton" Content="&gt;" Click="NextMonthButton_Click" Width="40" Height="40" Foreground="#dde1e6" FontSize="18" Margin="5">
-                <Button.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#764ba2" Offset="0.0" />
-                        <GradientStop Color="#667eea" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Button.Background>
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <TextBlock x:Name="MonthYearText" Width="Auto" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" Foreground="#dde1e6"/>
+                <Button x:Name="NextMonthButton" Content="&gt;" Click="NextMonthButton_Click" Width="40" Height="40" Foreground="#dde1e6" FontSize="18" Margin="5">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#764ba2" Offset="0.0" />
+                            <GradientStop Color="#667eea" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
                     BorderBrush="{TemplateBinding BorderBrush}" 
                     CornerRadius="10">
-                            <ContentPresenter HorizontalAlignment="Center" 
+                                <ContentPresenter HorizontalAlignment="Center" 
                                           VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-    </StackPanel>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+        
 
-    <!-- Days of the Week -->
-    <UniformGrid x:Name="DaysOfWeekGrid" Rows="1" Columns="7" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,130,0,0">
-            <TextBlock Text="MON" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#dde1e6"/>
-            <TextBlock Text="TUE" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#dde1e6"/>
-            <TextBlock Text="WED" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#dde1e6"/>
-            <TextBlock Text="THU" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#dde1e6"/>
-            <TextBlock Text="FRI" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#dde1e6"/>
-            <TextBlock Text="SAT" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#dde1e6"/>
-            <TextBlock Text="SUN" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#dde1e6"/>
-    </UniformGrid>
+   
 
     <!-- Calendar Grid -->
-    <UniformGrid x:Name="CalendarGrid" Rows="6" Columns="7" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,160,0,0" />
+    <!--<UniformGrid x:Name="CalendarGrid" Rows="6" Columns="7" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,160,0,0" />-->
+        <Grid Margin="5" Grid.Row="1" x:Name="CalendarGrid" />
   </Grid>
 </UserControl>
