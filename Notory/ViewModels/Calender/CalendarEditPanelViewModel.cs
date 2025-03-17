@@ -40,6 +40,17 @@ namespace Notory.ViewModels.Calender
 
         public ObservableCollection<CalendarDay> CalendarDays { get; set; }
 
+        private DateTime _monthYearText;
+        public DateTime MonthYearText
+        {
+            get { return _monthYearText; }
+            set
+            {
+                _monthYearText = value;
+                OnPropertyChanged(nameof(MonthYearText));
+            }
+        }
+
         public ICommand PrevMonthCommand { get; }
         public ICommand NextMonthCommand { get; }
         public ICommand DayButtonClickCommand { get; }
@@ -63,67 +74,67 @@ namespace Notory.ViewModels.Calender
         }
 
         private void UpdateCalendar()
-    {
-      Console.WriteLine("ViewModel-Konstruktor wird aufgerufen.");
-
-      CalendarDays.Clear();
-
-      DateTime firstDayOfMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
-      int startDay = (int)firstDayOfMonth.DayOfWeek;
-      if (startDay == 0) startDay = 7; // Sonntag auf 7 setzen
-
-      int daysInMonth = DateTime.DaysInMonth(CurrentDate.Year, CurrentDate.Month);
-      int totalCells = 6 * 7;
-      int currentDay = 1;
-
-      for (int i = 1; i <= totalCells; i++)
-      {
-        var calendarDay = new CalendarDay();
-
-        if (i < startDay || currentDay > daysInMonth)
         {
-          DateTime displayDate;
-          if (i < startDay)
-          {
-            displayDate = firstDayOfMonth.AddDays(i - startDay);
-          }
-          else
-          {
-            displayDate = firstDayOfMonth.AddDays((currentDay - 1) + (i - startDay - daysInMonth + 1));
-          }
+            MonthYearText = SelectedDate;
 
-          calendarDay.Day = displayDate.Day.ToString();
-          calendarDay.IsEnabled = false;
-                    calendarDay.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1b1021"));
-          calendarDay.Foreground = Brushes.White;
-        }
-        else
-        {
-          calendarDay.Day = currentDay.ToString();
-          DateTime buttonDate = new DateTime(CurrentDate.Year, CurrentDate.Month, currentDay);
+            CalendarDays.Clear();
 
-          if (buttonDate == SelectedDate)
-          {
-            calendarDay.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5c4ef8"));
-          }
-          else if (buttonDate == DateTime.Today)
-          {
-            if (CurrentDate != SelectedDate)
+            DateTime firstDayOfMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
+            int startDay = (int)firstDayOfMonth.DayOfWeek;
+            if (startDay == 0) startDay = 7; // Sonntag auf 7 setzen
+
+            int daysInMonth = DateTime.DaysInMonth(CurrentDate.Year, CurrentDate.Month);
+            int totalCells = 6 * 7;
+            int currentDay = 1;
+
+            for (int i = 1; i <= totalCells; i++)
             {
-              calendarDay.Background = Brushes.Transparent;
-            }
-            else
-            {
-              calendarDay.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5c4ef8"));
-            }
-            calendarDay.Foreground = Brushes.White;
-          }
-          currentDay++;
-        }
+              var calendarDay = new CalendarDay();
 
-        CalendarDays.Add(calendarDay);
-      }
-    }
+              if (i < startDay || currentDay > daysInMonth)
+              {
+                DateTime displayDate;
+                if (i < startDay)
+                {
+                  displayDate = firstDayOfMonth.AddDays(i - startDay);
+                }
+                else
+                {
+                  displayDate = firstDayOfMonth.AddDays((currentDay - 1) + (i - startDay - daysInMonth + 1));
+                }
+
+                calendarDay.Day = displayDate.Day.ToString();
+                calendarDay.IsEnabled = false;
+                          calendarDay.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1b1021"));
+                calendarDay.Foreground = Brushes.White;
+              }
+              else
+              {
+                calendarDay.Day = currentDay.ToString();
+                DateTime buttonDate = new DateTime(CurrentDate.Year, CurrentDate.Month, currentDay);
+
+                if (buttonDate == SelectedDate)
+                {
+                  calendarDay.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5c4ef8"));
+                }
+                else if (buttonDate == DateTime.Today)
+                {
+                  if (CurrentDate != SelectedDate)
+                  {
+                    calendarDay.Background = Brushes.Transparent;
+                  }
+                  else
+                  {
+                    calendarDay.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5c4ef8"));
+                  }
+                  calendarDay.Foreground = Brushes.White;
+                }
+                currentDay++;
+              }
+
+              CalendarDays.Add(calendarDay);
+            }
+        }
 
     private void PrevMonth()
         {
@@ -147,7 +158,7 @@ namespace Notory.ViewModels.Calender
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(SelectedDate, new PropertyChangedEventArgs("SelectedDate"));
+            PropertyChanged?.Invoke(SelectedDate, new PropertyChangedEventArgs(propertyName));
         }
     }
 

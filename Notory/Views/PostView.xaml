@@ -6,15 +6,80 @@
              xmlns:local="clr-namespace:Notory.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <!-- Style für die ToolBar -->
+        <!--<Style TargetType="ToolBar">
+            <Setter Property="Background" Value="#25252d" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>-->
+
+        <!-- Style für die ComboBox -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#333333" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#555555" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Height" Value="25" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Margin" Value="5,0" />
+        </Style>
+
+        <!-- Style für die Buttons -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#333333" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#555555" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#444444" />
+                    <Setter Property="BorderBrush" Value="#777777" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#555555" />
+                    <Setter Property="BorderBrush" Value="#999999" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <DockPanel>
-        <!-- Toolbar für Formatierungsoptionen -->
-        <ToolBarTray DockPanel.Dock="Top">
-            <ToolBar>
+        <!-- ToolBarTray mit verbessertem Design -->
+        <ToolBarTray DockPanel.Dock="Top" Background="#0f0f11"  Height="40">
+            <ToolBar Height="40">
                 <ComboBox x:Name="FontFamilyComboBox" Width="120" SelectionChanged="FontFamilyComboBox_SelectionChanged" />
                 <ComboBox x:Name="FontSizeComboBox" Width="50" SelectionChanged="FontSizeComboBox_SelectionChanged" />
                 <Button x:Name="BoldButton" Click="BoldButton_Click" Content="B" FontWeight="Bold" />
                 <Button x:Name="ItalicButton" Click="ItalicButton_Click" Content="I" FontStyle="Italic" />
-                <Button x:Name="UnderLineButton" Click="UnderlineButton_Click" Content="U"  />
+                <Button x:Name="UnderLineButton" Click="UnderlineButton_Click" Content="U" />
                 <Button Click="ForegroundColorButton_Click" Content="Text Color" />
                 <Button Click="BackgroundColorButton_Click" Content="Background Color" />
                 <Button Click="CheckboxButton_Click" Content="Checkbox" />
@@ -24,6 +89,6 @@
         </ToolBarTray>
 
         <!-- RichTextBox für den Editor -->
-        <RichTextBox x:Name="Editor" />
+        <RichTextBox x:Name="Editor" Background="#1e1e1e" Foreground="White" />
     </DockPanel>
 </UserControl>
