@@ -17,12 +17,12 @@
                     <DataTemplate>
                         <!-- Nur anzeigen, wenn der Eintrag Daten hat -->
                         <Border Visibility="{Binding HasData, Converter={StaticResource BoolToVisibilityConverter}}"
-                                Background="#FFE0E0E0" CornerRadius="6" Padding="10" Margin="0,5">
+                                Background="{Binding BackgroundColor}" CornerRadius="6" Padding="10" Margin="0,5" >
                             <StackPanel>
-                                <TextBlock Text="{Binding Title}" FontWeight="Bold" />
-                                <TextBlock Text="{Binding Subtitle}" Foreground="Gray" />
+                                <TextBlock Text="{Binding Title}" FontWeight="Bold" Foreground="#fff" FontSize="16"/>
+                                <TextBlock Text="{Binding Subtitle}" Foreground="#fff" />
                                 <!-- Höhe basierend auf der Dauer -->
-                                <Border Height="{Binding Duration}" Background="LightBlue" />
+                                <Border Height="{Binding Duration}"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>

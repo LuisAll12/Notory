@@ -141,7 +141,6 @@ namespace Notory.ViewModels.Calender
             {
                 SelectedDate = new DateTime(CurrentDate.Year, CurrentDate.Month, selectedDay);
                 UpdateCalendar();
-                MessageBox.Show($"Selected Date:{SelectedDate}");
             }
         }
 
