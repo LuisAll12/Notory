@@ -62,7 +62,7 @@ namespace Notory.ViewModels.Calender
             UpdateCalendar();
         }
 
-    private void UpdateCalendar()
+        private void UpdateCalendar()
     {
       Console.WriteLine("ViewModel-Konstruktor wird aufgerufen.");
 
@@ -141,7 +141,6 @@ namespace Notory.ViewModels.Calender
             {
                 SelectedDate = new DateTime(CurrentDate.Year, CurrentDate.Month, selectedDay);
                 UpdateCalendar();
-
                 MessageBox.Show($"Selected Date:{SelectedDate}");
             }
         }
@@ -149,7 +148,7 @@ namespace Notory.ViewModels.Calender
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(SelectedDate, new PropertyChangedEventArgs("SelectedDate"));
         }
     }
 

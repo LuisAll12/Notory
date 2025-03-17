@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Notory.ViewModels.Calender;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -10,15 +11,11 @@ namespace Notory.Views
         public CalendarEditPanel()
         {
             InitializeComponent();
-            DataContext = new ViewModels.Calender.CalendarEditPanelViewModel();
-        if (DataContext is ViewModels.Calender.CalendarEditPanelViewModel viewModel)
-        {
-          Console.WriteLine("DataContext ist korrekt gesetzt.");
-        }
-        else
-        {
-          Console.WriteLine("DataContext ist NICHT korrekt gesetzt.");
-        }
       }
+        public CalendarEditPanel(DayScheduleViewModel dayScheduleViewModel)
+        {
+            InitializeComponent();
+            this.DataContext = new CalendarEditPanel(dayScheduleViewModel);
+        }
     }
 }

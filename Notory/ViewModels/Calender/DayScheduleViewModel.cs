@@ -6,25 +6,27 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Notory.ViewModels.Calender
 {
   public class DayScheduleViewModel : INotifyPropertyChanged
   {
     private DateTime _filterDate;
-    public DateTime FilterDate
+        public DateTime FilterDate
     {
-        get => _filterDate;
-        set
-        {
-            if (_filterDate != value)
+            get => _filterDate;
+            set
             {
-                _filterDate = value;
-                OnPropertyChanged(nameof(FilterDate));
-                UpdateEntries(); // <- HIER passiert das Magic ✨
+                if (_filterDate != value)
+                {
+                    _filterDate = value;
+                    OnPropertyChanged(nameof(FilterDate));
+                    ApplyFilterDate(FilterDate);
+                }
             }
         }
-    }
 
         public ObservableCollection<TimeLineEntry> Entries { get; set; }
 
@@ -37,14 +39,14 @@ namespace Notory.ViewModels.Calender
       // Initialisiere die Entries-Collection
       Entries = new ObservableCollection<TimeLineEntry>();
 
-      // Abonniere Änderungen an SelectedDate
+            //Abonniere Änderungen an SelectedDate
       _calendarEditPanelViewModel.PropertyChanged += OnCalendarEditPanelViewModelPropertyChanged;
 
-      // Setze den initialen FilterDate-Wert
+            //Setze den initialen FilterDate-Wert
       FilterDate = _calendarEditPanelViewModel.SelectedDate;
 
-      // Lade die Einträge
-      UpdateEntries();
+
+      ApplyFilterDate(FilterDate);
     }
 
     private void OnCalendarEditPanelViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -53,40 +55,47 @@ namespace Notory.ViewModels.Calender
       {
         // Aktualisiere FilterDate, wenn sich SelectedDate ändert
         FilterDate = _calendarEditPanelViewModel.SelectedDate;
+        ApplyFilterDate(FilterDate);
       }
     }
 
-    private void UpdateEntries()
-    {
-      // Erstelle eine unsortierte Liste von Einträgen
-      var entries = new ObservableCollection<TimeLineEntry>
+    public void DaySceduleVM_PropertyChanged(object sender, DateTime selectedDate)
+        {
+            FilterDate = selectedDate;
+            ApplyFilterDate(FilterDate);
+        }
+
+        public void ApplyFilterDate(DateTime input)
+        {
+            FilterDate = input;
+
+            var entries = new ObservableCollection<TimeLineEntry>
+                {
+                    new TimeLineEntry {Date =  new DateTime(2025, 3, 17), TimeFrom = "10:00", TimeTo = "11:00", Title = "Design System Ref...", Subtitle = FilterDate.ToString() },
+                    new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "09:00", TimeTo = "09:30", Title = "Daily Team Standup", Subtitle = "" },
+                    new TimeLineEntry {Date = new DateTime(2025, 3, 14), TimeFrom = "12:00", TimeTo = "13:00", Title = "Lunch time", Subtitle = "12 PM – 1 PM" },
+                    new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "13:00", TimeTo = "14:00", Title = "Dentist Appointment", Subtitle = "" },
+                    new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "15:00", TimeTo = "16:00", Title = "Spirit Planning", Subtitle = "4 PM – 4 PM" },
+                    new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "17:00", TimeTo = "17:30", Title = "End of day check-in", Subtitle = "" },
+                    new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "11:00", TimeTo = "11:30", Title = "", Subtitle = "" },
+                    new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "14:00", TimeTo = "14:30", Title = "", Subtitle = "" },
+                    new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "18:00", TimeTo = "18:30", Title = "", Subtitle = "" },
+                    new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "19:00", TimeTo = "19:30", Title = "", Subtitle = "" },
+                    new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "20:00", TimeTo = "20:30", Title = "", Subtitle = "" }
+                };
+
+            var filteredEntries = entries
+                .Where(e => e.Date.Date == FilterDate.Date)
+                .OrderBy(e => DateTime.Parse(e.TimeFrom))
+                .ToList();
+
+            Entries.Clear();
+            foreach (var entry in filteredEntries)
             {
-                new TimeLineEntry {Date = FilterDate, TimeFrom = "10:00", TimeTo = "11:00", Title = "Design System Ref...", Subtitle = FilterDate.ToString() },
-                new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "09:00", TimeTo = "09:30", Title = "Daily Team Standup", Subtitle = "" },
-                new TimeLineEntry {Date = new DateTime(2025, 3, 14), TimeFrom = "12:00", TimeTo = "13:00", Title = "Lunch time", Subtitle = "12 PM – 1 PM" },
-                new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "13:00", TimeTo = "14:00", Title = "Dentist Appointment", Subtitle = "" },
-                new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "15:00", TimeTo = "16:00", Title = "Spirit Planning", Subtitle = "4 PM – 4 PM" },
-                new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "17:00", TimeTo = "17:30", Title = "End of day check-in", Subtitle = "" },
-                new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "11:00", TimeTo = "11:30", Title = "", Subtitle = "" },
-                new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "14:00", TimeTo = "14:30", Title = "", Subtitle = "" },
-                new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "18:00", TimeTo = "18:30", Title = "", Subtitle = "" },
-                new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "19:00", TimeTo = "19:30", Title = "", Subtitle = "" },
-                new TimeLineEntry {Date = new DateTime(2025, 2, 19), TimeFrom = "20:00", TimeTo = "20:30", Title = "", Subtitle = "" }
-            };
+                Entries.Add(entry);
+            }
+        }
 
-            FilterDate = new DateTime(2025, 3, 14);
-      // Filtere die Einträge nach dem aktuellen FilterDate
-      var filteredEntries = entries
-          .Where(e => e.Date.Date == FilterDate.Date) // Nur Einträge mit dem Filterdatum
-          .OrderBy(e => DateTime.Parse(e.TimeFrom));   // Sortiere nach der Startzeit
-
-      // Lade die gefilterten und sortierten Einträge in die ObservableCollection
-      Entries.Clear();
-      foreach (var entry in filteredEntries)
-      {
-        Entries.Add(entry);
-      }
-    }
 
     public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged(string propertyName)
