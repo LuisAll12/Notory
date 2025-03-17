@@ -34,13 +34,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
-            <Button x:Name="PrevMonthButton" Content="&lt;"  Command="{Binding PrevMonthCommand}" Width="40" Height="40" Foreground="#dde1e6" FontSize="18" Margin="5">
-                <Button.Background>
+            <Button x:Name="PrevMonthButton" Background="#0f0f11" Content="&lt;"  Command="{Binding PrevMonthCommand}" Width="40" Height="40" Foreground="#dde1e6" FontSize="18" Margin="5">
+                <!--<Button.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#764ba2" Offset="0.0" />
                         <GradientStop Color="#667eea" Offset="1.0" />
                     </LinearGradientBrush>
-                </Button.Background>
+                </Button.Background>-->
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
@@ -53,13 +53,13 @@
                 </Button.Template>
             </Button>
             <TextBlock x:Name="MonthYearText" Text="{Binding CurrentDate, StringFormat='MMMM yyyy'}" Width="Auto" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" Foreground="#dde1e6"/>
-            <Button x:Name="NextMonthButton" Content="&gt;" Command="{Binding NextMonthCommand}" Width="40" Height="40" Foreground="#dde1e6" FontSize="18" Margin="5">
-                <Button.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <Button x:Name="NextMonthButton" Background="#0f0f11" Content="&gt;" Command="{Binding NextMonthCommand}" Width="40" Height="40" Foreground="#dde1e6" FontSize="18" Margin="5">
+                <!--<Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="01,1">
                         <GradientStop Color="#764ba2" Offset="0.0" />
                         <GradientStop Color="#667eea" Offset="1.0" />
                     </LinearGradientBrush>
-                </Button.Background>
+                </Button.Background>-->
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 

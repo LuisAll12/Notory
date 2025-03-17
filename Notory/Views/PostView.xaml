@@ -6,7 +6,24 @@
              xmlns:local="clr-namespace:Notory.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="Helloppp0" Foreground="White"/> 
-    </Grid>
+    <DockPanel>
+        <!-- Toolbar für Formatierungsoptionen -->
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <ComboBox x:Name="FontFamilyComboBox" Width="120" SelectionChanged="FontFamilyComboBox_SelectionChanged" />
+                <ComboBox x:Name="FontSizeComboBox" Width="50" SelectionChanged="FontSizeComboBox_SelectionChanged" />
+                <Button x:Name="BoldButton" Click="BoldButton_Click" Content="B" FontWeight="Bold" />
+                <Button x:Name="ItalicButton" Click="ItalicButton_Click" Content="I" FontStyle="Italic" />
+                <Button x:Name="UnderLineButton" Click="UnderlineButton_Click" Content="U"  />
+                <Button Click="ForegroundColorButton_Click" Content="Text Color" />
+                <Button Click="BackgroundColorButton_Click" Content="Background Color" />
+                <Button Click="CheckboxButton_Click" Content="Checkbox" />
+                <Button Click="BulletListButton_Click" Content="•" />
+                <Button Click="NumberedListButton_Click" Content="1." />
+            </ToolBar>
+        </ToolBarTray>
+
+        <!-- RichTextBox für den Editor -->
+        <RichTextBox x:Name="Editor" />
+    </DockPanel>
 </UserControl>

@@ -1,0 +1,12 @@
+﻿<Root>
+	<Person>
+		<Name>John Doe</Name>
+		<Age>30</Age>
+		<IsActive>true</IsActive>
+	</Person>
+	<Person>
+		<Name>Jane Smith</Name>
+		<Age>25</Age>
+		<IsActive>false</IsActive>
+	</Person>
+</Root>

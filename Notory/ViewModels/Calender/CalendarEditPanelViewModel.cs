@@ -94,7 +94,7 @@ namespace Notory.ViewModels.Calender
 
           calendarDay.Day = displayDate.Day.ToString();
           calendarDay.IsEnabled = false;
-          calendarDay.Background = Brushes.DarkGray;
+                    calendarDay.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1b1021"));
           calendarDay.Foreground = Brushes.White;
         }
         else
