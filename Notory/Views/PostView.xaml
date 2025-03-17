@@ -8,11 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <!-- Style für die ToolBar -->
-        <!--<Style TargetType="ToolBar">
+        <Style TargetType="ToolBar">
             <Setter Property="Background" Value="#25252d" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="ItemsPanel">
                 <Setter.Value>
                     <ItemsPanelTemplate>
@@ -20,11 +19,11 @@
                     </ItemsPanelTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>-->
+        </Style>
 
         <!-- Style für die ComboBox -->
         <Style TargetType="ComboBox">
-            <Setter Property="Background" Value="#333333" />
+            <Setter Property="Background" Value="#25252d" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderBrush" Value="#555555" />
             <Setter Property="BorderThickness" Value="1" />
@@ -37,7 +36,7 @@
 
         <!-- Style für die Buttons -->
         <Style TargetType="Button">
-            <Setter Property="Background" Value="#333333" />
+            <Setter Property="Background" Value="#25252d" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderBrush" Value="#555555" />
             <Setter Property="BorderThickness" Value="1" />
@@ -71,24 +70,44 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <DockPanel>
-        <!-- ToolBarTray mit verbessertem Design -->
-        <ToolBarTray DockPanel.Dock="Top" Background="#0f0f11"  Height="40">
-            <ToolBar Height="40">
-                <ComboBox x:Name="FontFamilyComboBox" Width="120" SelectionChanged="FontFamilyComboBox_SelectionChanged" />
-                <ComboBox x:Name="FontSizeComboBox" Width="50" SelectionChanged="FontSizeComboBox_SelectionChanged" />
-                <Button x:Name="BoldButton" Click="BoldButton_Click" Content="B" FontWeight="Bold" />
-                <Button x:Name="ItalicButton" Click="ItalicButton_Click" Content="I" FontStyle="Italic" />
-                <Button x:Name="UnderLineButton" Click="UnderlineButton_Click" Content="U" />
-                <Button Click="ForegroundColorButton_Click" Content="Text Color" />
-                <Button Click="BackgroundColorButton_Click" Content="Background Color" />
-                <Button Click="CheckboxButton_Click" Content="Checkbox" />
-                <Button Click="BulletListButton_Click" Content="•" />
-                <Button Click="NumberedListButton_Click" Content="1." />
-            </ToolBar>
-        </ToolBarTray>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="92*"/>
+        </Grid.RowDefinitions>
 
-        <!-- RichTextBox für den Editor -->
-        <RichTextBox x:Name="Editor" Background="#1e1e1e" Foreground="White" />
-    </DockPanel>
+        <StackPanel Grid.Row="0" Background="#0f0f11" VerticalAlignment="Center" Orientation="Horizontal">
+            <!-- ToolBarTray mit verbessertem Design -->
+            <ToolBarTray DockPanel.Dock="Top" Background="#25252d">
+                <ToolBar>
+                    <ComboBox x:Name="FontFamilyComboBox" Width="120" SelectionChanged="FontFamilyComboBox_SelectionChanged" Background="#25252d" BorderBrush="#fff" Foreground="White"/>
+                    <ComboBox x:Name="FontSizeComboBox" Width="50" SelectionChanged="FontSizeComboBox_SelectionChanged" Background="#25252d" BorderBrush="#fff" Foreground="White"/>
+                    <Button x:Name="BoldButton" Click="BoldButton_Click" Content="B" FontWeight="Bold" Foreground="White" />
+                    <Button x:Name="ItalicButton" Click="ItalicButton_Click" Content="I" FontStyle="Italic" Foreground="White"/>
+                    <Button x:Name="UnderLineButton" Click="UnderlineButton_Click" Content="U" Foreground="White"/>
+                    <Button Click="ForegroundColorButton_Click" Content="Text Color" Foreground="White"/>
+                    <Button Click="BackgroundColorButton_Click" Content="Background Color" Foreground="White"/>
+                    <Button Click="CheckboxButton_Click" Content="Checkbox" Foreground="White"/>
+                    <Button Click="BulletListButton_Click" Content="•" Foreground="White"/>
+                    <Button Click="NumberedListButton_Click" Content="1." Foreground="White"/>
+                </ToolBar>
+            </ToolBarTray>
+            <Button x:Name="OptionsButton" Content="..." VerticalAlignment="Center" Margin="10 0 0 0" Padding="10" Height="21" Width="24">
+                <Button.ContextMenu>
+                    <!-- ContextMenu with three buttons -->
+                    <ContextMenu>
+                        <MenuItem Header="Save" Click="Save_Click" />
+                        <MenuItem Header="Delete" Click="Delete_Click" />
+                        <MenuItem Header="Cancel" Click="Cancel_Click" />
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
+        </StackPanel>
+
+        <!-- Ersetzen Sie das StackPanel durch ein DockPanel -->
+        <DockPanel Grid.Row="1">
+            <!-- RichTextBox für den Editor -->
+            <RichTextBox x:Name="Editor" Background="#25252d" Foreground="White" />
+        </DockPanel>
+    </Grid>
 </UserControl>

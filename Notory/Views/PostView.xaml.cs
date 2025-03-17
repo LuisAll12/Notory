@@ -17,6 +17,7 @@ using System.Xml;
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Notory.Views
 {
@@ -125,12 +126,47 @@ namespace Notory.Views
             list.ListItems.Add(new ListItem(paragraph));
             Editor.Document.Blocks.Add(list);
         }
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string filePath = System.IO.Path.Combine(documentsPath, "NotoryFile.xaml");
+            SaveToXml(filePath);
+        }
         private void SaveToXml(string filePath)
         {
-            var range = new TextRange(Editor.Document.ContentStart, Editor.Document.ContentEnd);
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            try
             {
-                range.Save(stream, System.Windows.DataFormats.Xaml);
+                string directory = System.IO.Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+                System.Diagnostics.Debug.WriteLine($"Saving file to: {System.IO.Path.GetFullPath(filePath)}");
+                var range = new TextRange(Editor.Document.ContentStart, Editor.Document.ContentEnd);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    range.Save(stream, System.Windows.DataFormats.Xaml);
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                MessageBox.Show($"Access denied: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"I/O error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
