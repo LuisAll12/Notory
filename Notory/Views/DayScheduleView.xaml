@@ -46,10 +46,12 @@
                     <DataTemplate>
                         <!-- Nur anzeigen, wenn der Eintrag Daten hat -->
                         <Button Command="{Binding DataContext.DayItemClickCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
                                         Background="Transparent"
                                         BorderBrush="Transparent"
                                         Padding="0"
-                                        BorderThickness="0">
+                                        BorderThickness="0"
+                                        Margin="6 1 1 0">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Template">

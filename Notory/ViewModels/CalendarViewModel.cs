@@ -51,7 +51,8 @@ namespace Notory.ViewModels
             DaySceduleVM = new DayScheduleViewModel(EditPanelVM);
             EditPanelVM.PropertyChanged += EditPanelVM_PropertyChanged;
 
-            PostVM = new PostViewModel();
+            PostVM = new PostViewModel(DaySceduleVM);
+            DaySceduleVM.PropertyChanged += PostVM_Propertychanged;
 
             CalendarEditPanelVM = EditPanelVM;
 
@@ -63,6 +64,10 @@ namespace Notory.ViewModels
         private void EditPanelVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             DaySceduleVM.ApplyFilterDate((DateTime)sender);
+        }
+        private void PostVM_Propertychanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            PostVM.SetPost(sender);
         }
     }
 }

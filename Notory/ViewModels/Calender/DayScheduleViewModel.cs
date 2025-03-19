@@ -15,6 +15,20 @@ namespace Notory.ViewModels.Calender
 {
       public class DayScheduleViewModel : INotifyPropertyChanged
       {
+            private object _selectedItem;
+            public object SelectedItem
+            {
+                get => _selectedItem;
+                set
+                {
+                    if (_selectedItem != value)
+                    {
+                        _selectedItem = value;
+                        OnPropertyChanged(nameof(SelectedItem)); //<--- wichtig!
+                    }
+                }
+            }
+            
             private DateTime _filterDate;
             public DateTime FilterDate{
                 get => _filterDate;
@@ -77,7 +91,7 @@ namespace Notory.ViewModels.Calender
                         new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "10:00", TimeTo = "11:00", Title = "Design System Ref...", Subtitle = FilterDate.ToString(), BackgroundColor = "#725cfc"},
                         new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "09:00", TimeTo = "09:30", Title = "Daily Team Standup", Subtitle = "", BackgroundColor = "#ff7b43"},
                         new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "12:00", TimeTo = "13:00", Title = "Lunch time", Subtitle = "12 PM – 1 PM" , BackgroundColor = "#3a3c49"},
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "13:00", TimeTo = "14:00", Title = "Dentist Appointment", Subtitle = "" , BackgroundColor = "#5b9dfe"},
+                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "13:00", TimeTo = "15:00", Title = "Dentist Appointment", Subtitle = "" , BackgroundColor = "#5b9dfe"},
                         new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "15:00", TimeTo = "16:00", Title = "Spirit Planning", Subtitle = "4 PM – 4 PM" , BackgroundColor = "#da5ece"},
                         new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "17:00", TimeTo = "17:30", Title = "End of day check-in", Subtitle = "" , BackgroundColor = "#338076"},
                         new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "11:00", TimeTo = "11:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
@@ -105,9 +119,9 @@ namespace Notory.ViewModels.Calender
             {
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
-            private void DayItem_Click()
+            private void DayItem_Click(object sender)
             {
-                MessageBox.Show("Test");
+                SelectedItem = sender;
             }
       }
 
