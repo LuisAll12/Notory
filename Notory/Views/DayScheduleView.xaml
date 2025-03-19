@@ -45,15 +45,34 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <!-- Nur anzeigen, wenn der Eintrag Daten hat -->
-                        <Border Visibility="{Binding HasData, Converter={StaticResource BoolToVisibilityConverter}}"
-                                Background="{Binding BackgroundColor}" CornerRadius="6" Padding="10" Margin="0,5" >
-                            <StackPanel>
-                                <TextBlock Text="{Binding Title}" FontWeight="Bold" Foreground="#fff" FontSize="16"/>
-                                <TextBlock Text="{Binding Subtitle}" Foreground="#fff" />
-                                <!-- Höhe basierend auf der Dauer -->
-                                <Border Height="{Binding Duration}"/>
-                            </StackPanel>
-                        </Border>
+                        <Button Command="{Binding DataContext.DayItemClickCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Padding="0"
+                                        BorderThickness="0">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <ContentPresenter />
+                                                <!-- Zeigt einfach den Inhalt an -->
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                            <Border Visibility="{Binding HasData, Converter={StaticResource BoolToVisibilityConverter}}"
+                                    Background="{Binding BackgroundColor}" CornerRadius="6" Padding="10">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Title}" FontWeight="Bold" Foreground="#fff" FontSize="16" />
+                                    <TextBlock Text="{Binding Subtitle}" Foreground="#fff" />
+                                    <!-- Höhe basierend auf der Dauer -->
+                                    <Border Height="{Binding Duration}"/>
+                                </StackPanel>
+                            </Border>   
+                        </Button>
+
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Notory.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Notory.ViewModels.Calender
 {
@@ -26,6 +28,7 @@ namespace Notory.ViewModels.Calender
                     }
                 }
             }
+            public ICommand DayItemClickCommand { get; }
 
             public ObservableCollection<TimeLineEntry> Entries { get; set; }
 
@@ -43,6 +46,7 @@ namespace Notory.ViewModels.Calender
 
                         //Setze den initialen FilterDate-Wert
                   FilterDate = _calendarEditPanelViewModel.SelectedDate;
+                  DayItemClickCommand = new RelayCommand(DayItem_Click);
 
 
                   ApplyFilterDate(FilterDate);
@@ -100,6 +104,10 @@ namespace Notory.ViewModels.Calender
             protected void OnPropertyChanged(string propertyName)
             {
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+            private void DayItem_Click()
+            {
+                MessageBox.Show("Test");
             }
       }
 

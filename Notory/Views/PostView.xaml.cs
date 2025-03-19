@@ -168,7 +168,8 @@ namespace Notory.Views
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
+        } 
+
 
         private void LoadFromXml(string filePath)
         {
