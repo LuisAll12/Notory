@@ -1,4 +1,5 @@
 ﻿using Notory.Helpers;
+using Notory.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -44,7 +45,7 @@ namespace Notory.ViewModels.Calender
             }
             public ICommand DayItemClickCommand { get; }
 
-            public ObservableCollection<TimeLineEntry> Entries { get; set; }
+            public ObservableCollection<CalendarPost> Entries { get; set; }
 
             private readonly CalendarEditPanelViewModel _calendarEditPanelViewModel;
 
@@ -53,7 +54,7 @@ namespace Notory.ViewModels.Calender
                   _calendarEditPanelViewModel = calendarEditPanelViewModel;
 
                   // Initialisiere die Entries-Collection
-                  Entries = new ObservableCollection<TimeLineEntry>();
+                  Entries = new ObservableCollection<CalendarPost>();
 
                         //Abonniere Änderungen an SelectedDate
                   _calendarEditPanelViewModel.PropertyChanged += OnCalendarEditPanelViewModelPropertyChanged;
@@ -85,20 +86,20 @@ namespace Notory.ViewModels.Calender
             public void ApplyFilterDate(DateTime input)
             {
                 FilterDate = input;
-
-                var entries = new ObservableCollection<TimeLineEntry>
+                
+                var entries = new ObservableCollection<CalendarPost>
                     {
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "10:00", TimeTo = "11:00", Title = "Design System Ref...", Subtitle = FilterDate.ToString(), BackgroundColor = "#725cfc"},
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "09:00", TimeTo = "09:30", Title = "Daily Team Standup", Subtitle = "", BackgroundColor = "#ff7b43"},
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "12:00", TimeTo = "13:00", Title = "Lunch time", Subtitle = "12 PM – 1 PM" , BackgroundColor = "#3a3c49"},
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "13:00", TimeTo = "15:00", Title = "Dentist Appointment", Subtitle = "" , BackgroundColor = "#5b9dfe"},
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "15:00", TimeTo = "16:00", Title = "Spirit Planning", Subtitle = "4 PM – 4 PM" , BackgroundColor = "#da5ece"},
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "17:00", TimeTo = "17:30", Title = "End of day check-in", Subtitle = "" , BackgroundColor = "#338076"},
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "11:00", TimeTo = "11:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "14:00", TimeTo = "14:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "18:00", TimeTo = "18:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "19:00", TimeTo = "19:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
-                        new TimeLineEntry {Date = new DateTime(2025, 3, 17), TimeFrom = "20:00", TimeTo = "20:30", Title = "", Subtitle = "" , BackgroundColor = "#000"}
+                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "10:00", TimeTo = "11:00", Title = "Design System Ref...", Subtitle = FilterDate.ToString(), BackgroundColor = "#725cfc"},
+                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "09:00", TimeTo = "09:30", Title = "Daily Team Standup", Subtitle = "", BackgroundColor = "#ff7b43"},
+                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "12:00", TimeTo = "13:00", Title = "Lunch time", Subtitle = "12 PM – 1 PM" , BackgroundColor = "#3a3c49"},
+                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "13:00", TimeTo = "15:00", Title = "Dentist Appointment", Subtitle = "" , BackgroundColor = "#5b9dfe"},
+                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "15:00", TimeTo = "16:00", Title = "Spirit Planning", Subtitle = "4 PM – 4 PM" , BackgroundColor = "#da5ece"},
+                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "17:00", TimeTo = "17:30", Title = "End of day check-in", Subtitle = "" , BackgroundColor = "#338076"},
+                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "11:00", TimeTo = "11:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
+                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "14:00", TimeTo = "14:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
+                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "18:00", TimeTo = "18:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
+                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "19:00", TimeTo = "19:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
+                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "20:00", TimeTo = "20:30", Title = "", Subtitle = "" , BackgroundColor = "#000"}
                     };
 
                 var filteredEntries = entries

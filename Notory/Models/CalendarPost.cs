@@ -6,14 +6,27 @@ using System.Threading.Tasks;
 
 namespace Notory.Models
 {
-    internal class CalendarPost
+    public class CalendarPost
     {
 
-        public string Title { get; set; }
-        public string Location { get; set; }
         public DateTime Date { get; set; }
-        public TimeSpan TimeFrom { get; set; }
-        public TimeSpan TimeTo { get; set; }
-        public string TextNote { get; set; }
+        public string TimeFrom { get; set; }
+        public string TimeTo { get; set; }
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
+        public string BackgroundColor { get; set; }
+        public int Duration
+        {
+            get
+            {
+                if (DateTime.TryParse(TimeFrom, out var from) && DateTime.TryParse(TimeTo, out var to))
+                {
+                    return (int)(to - from).TotalMinutes;
+                }
+                return 0;
+            }
+        }
+
+        public bool HasData => !string.IsNullOrEmpty(Title) || !string.IsNullOrEmpty(Subtitle);
     }
 }
