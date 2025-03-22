@@ -45,8 +45,8 @@
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}" 
-            BorderBrush="{TemplateBinding BorderBrush}" 
-            CornerRadius="10">
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    CornerRadius="10">
                                 <ContentPresenter HorizontalAlignment="Center" 
                                   VerticalAlignment="Center" />
                             </Border>
@@ -64,8 +64,8 @@
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}" 
-            BorderBrush="{TemplateBinding BorderBrush}" 
-            CornerRadius="10">
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    CornerRadius="10">
                                 <ContentPresenter HorizontalAlignment="Center" 
                                   VerticalAlignment="Center" />
                             </Border>

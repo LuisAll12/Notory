@@ -8,7 +8,7 @@ namespace Notory.Models
 {
     public class CalendarPost
     {
-
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public string TimeFrom { get; set; }
         public string TimeTo { get; set; }

@@ -1,15 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Notory.Helpers;
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Notory.ViewModels.Calender
 {
-    internal class PostViewModel
+    internal class PostViewModel : INotifyPropertyChanged
     {
-        private object SelectedItem = null;
+        private int _selectedItem;
+
+        public int SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                if (_selectedItem != value)
+                {
+                    _selectedItem = value;
+                    OnPropertyChanged(nameof(SelectedItem));
+                    SetPost(SelectedItem);
+                }
+            }
+        }
 
         private readonly DayScheduleViewModel _dayScheduleViewModel;
 
@@ -20,12 +35,12 @@ namespace Notory.ViewModels.Calender
             _dayScheduleViewModel.PropertyChanged += OnDayScheduleViewModelPropertyChanged;
 
         }
-        public void SetPost(object sender)
+        public void SetPost(int sender)
         {
             SelectedItem = sender;
-            Console.WriteLine(SelectedItem);
+            Console.WriteLine("Das ist das"+ SelectedItem);
         }
-
+        public event PropertyChangedEventHandler PropertyChanged;
         private void OnDayScheduleViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(DayScheduleViewModel.SelectedItem))
@@ -34,6 +49,13 @@ namespace Notory.ViewModels.Calender
                 SelectedItem = _dayScheduleViewModel.SelectedItem;
                 SetPost(SelectedItem);
             }
+            MessageBox.Show("Test4");
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            MessageBox.Show("Test2");
         }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -16,8 +17,8 @@ namespace Notory.ViewModels.Calender
 {
       public class DayScheduleViewModel : INotifyPropertyChanged
       {
-            private object _selectedItem;
-            public object SelectedItem
+            private int _selectedItem;
+            public int SelectedItem
             {
                 get => _selectedItem;
                 set
@@ -89,17 +90,17 @@ namespace Notory.ViewModels.Calender
                 
                 var entries = new ObservableCollection<CalendarPost>
                     {
-                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "10:00", TimeTo = "11:00", Title = "Design System Ref...", Subtitle = FilterDate.ToString(), BackgroundColor = "#725cfc"},
-                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "09:00", TimeTo = "09:30", Title = "Daily Team Standup", Subtitle = "", BackgroundColor = "#ff7b43"},
-                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "12:00", TimeTo = "13:00", Title = "Lunch time", Subtitle = "12 PM – 1 PM" , BackgroundColor = "#3a3c49"},
-                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "13:00", TimeTo = "15:00", Title = "Dentist Appointment", Subtitle = "" , BackgroundColor = "#5b9dfe"},
-                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "15:00", TimeTo = "16:00", Title = "Spirit Planning", Subtitle = "4 PM – 4 PM" , BackgroundColor = "#da5ece"},
-                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "17:00", TimeTo = "17:30", Title = "End of day check-in", Subtitle = "" , BackgroundColor = "#338076"},
-                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "11:00", TimeTo = "11:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
-                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "14:00", TimeTo = "14:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
-                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "18:00", TimeTo = "18:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
-                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "19:00", TimeTo = "19:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
-                        new CalendarPost {Date = new DateTime(2025, 3, 17), TimeFrom = "20:00", TimeTo = "20:30", Title = "", Subtitle = "" , BackgroundColor = "#000"}
+                        new CalendarPost {Id = 1, Date = new DateTime(2025, 3, 17), TimeFrom = "10:00", TimeTo = "11:00", Title = "Design System Ref...", Subtitle = FilterDate.ToString(), BackgroundColor = "#725cfc"},
+                        new CalendarPost {Id = 2, Date = new DateTime(2025, 3, 17), TimeFrom = "09:00", TimeTo = "09:30", Title = "Daily Team Standup", Subtitle = "", BackgroundColor = "#ff7b43"},
+                        new CalendarPost {Id = 3, Date = new DateTime(2025, 3, 17), TimeFrom = "12:00", TimeTo = "13:00", Title = "Lunch time", Subtitle = "12 PM – 1 PM" , BackgroundColor = "#3a3c49"},
+                        new CalendarPost {Id = 4, Date = new DateTime(2025, 3, 17), TimeFrom = "13:00", TimeTo = "15:00", Title = "Dentist Appointment", Subtitle = "" , BackgroundColor = "#5b9dfe"},
+                        new CalendarPost {Id = 5, Date = new DateTime(2025, 3, 17), TimeFrom = "15:00", TimeTo = "16:00", Title = "Spirit Planning", Subtitle = "4 PM – 4 PM" , BackgroundColor = "#da5ece"},
+                        new CalendarPost {Id = 6, Date = new DateTime(2025, 3, 17), TimeFrom = "17:00", TimeTo = "17:30", Title = "End of day check-in", Subtitle = "" , BackgroundColor = "#338076"},
+                        new CalendarPost {Id = 7, Date = new DateTime(2025, 3, 17), TimeFrom = "11:00", TimeTo = "11:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
+                        new CalendarPost {Id = 8, Date = new DateTime(2025, 3, 17), TimeFrom = "14:00", TimeTo = "14:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
+                        new CalendarPost {Id = 9, Date = new DateTime(2025, 3, 17), TimeFrom = "18:00", TimeTo = "18:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
+                        new CalendarPost {Id = 10, Date = new DateTime(2025, 3, 17), TimeFrom = "19:00", TimeTo = "19:30", Title = "", Subtitle = "" , BackgroundColor = "#000"},
+                        new CalendarPost {Id = 11, Date = new DateTime(2025, 3, 17), TimeFrom = "20:00", TimeTo = "20:30", Title = "", Subtitle = "" , BackgroundColor = "#000"}
                     };
 
                 var filteredEntries = entries
@@ -118,34 +119,20 @@ namespace Notory.ViewModels.Calender
             public event PropertyChangedEventHandler PropertyChanged;
             protected void OnPropertyChanged(string propertyName)
             {
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                PropertyChanged?.Invoke(SelectedItem, new PropertyChangedEventArgs(propertyName));
             }
             private void DayItem_Click(object sender)
             {
-                SelectedItem = sender;
+                if (sender is CalendarPost calendarPost)
+                {
+                   _selectedItem = calendarPost.Id; // Direkt zuweisen
+                }
+                SelectedItem = _selectedItem;
+                Console.WriteLine(SelectedItem.ToString());
+                MessageBox.Show("Test1");
+
             }
       }
 
-      public class TimeLineEntry
-      {
-            public DateTime Date { get; set; }
-            public string TimeFrom { get; set; }
-            public string TimeTo { get; set; }
-            public string Title { get; set; }
-            public string Subtitle { get; set; }
-            public string BackgroundColor { get; set; }
-            public int Duration
-            {
-                  get
-                  {
-                        if (DateTime.TryParse(TimeFrom, out var from) && DateTime.TryParse(TimeTo, out var to))
-                        {
-                          return (int)(to - from).TotalMinutes;
-                        }
-                        return 0;
-                  }
-            }
 
-            public bool HasData => !string.IsNullOrEmpty(Title) || !string.IsNullOrEmpty(Subtitle);
-      }
 }

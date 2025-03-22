@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using Notory.ViewModels.Calender;
 
 namespace Notory.ViewModels
@@ -67,7 +69,8 @@ namespace Notory.ViewModels
         }
         private void PostVM_Propertychanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            PostVM.SetPost(sender);
+            PostVM.SetPost((int)sender);
+            Console.WriteLine("Test3");
         }
     }
 }
