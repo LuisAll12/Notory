@@ -4,9 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Notory.Views"
-        mc:Ignorable="d"
-        Title="NewCalendarPost_Window" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Apple Style Window"
+        Height="500" Width="800"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="CanResizeWithGrip">
+    <Border Background="#f2f2f2" CornerRadius="16" BorderBrush="#cccccc" BorderThickness="1" >
+        <Grid>
+            <Grid VerticalAlignment="Top" Height="40" Background="#e5e5e5" MouseDown="TitleBar_MouseDown">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                    <Ellipse Width="12" Height="12" Fill="#ff5f57" Margin="0,0,8,0" Cursor="Hand" MouseDown="CloseWindow"/>
+                    <Ellipse Width="12" Height="12" Fill="#ffbd2e" Margin="0,0,8,0" Cursor="Hand" MouseDown="MinimizeWindow"/>
+                    <Ellipse Width="12" Height="12" Fill="#28c840" Cursor="Hand" MouseDown="MaximizeWindow"/>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+    </Border>
 </Window>
