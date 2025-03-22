@@ -38,7 +38,6 @@ namespace Notory.ViewModels.Calender
         public void SetPost(int sender)
         {
             SelectedItem = sender;
-            Console.WriteLine("Das ist das"+ SelectedItem);
         }
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnDayScheduleViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -49,13 +48,11 @@ namespace Notory.ViewModels.Calender
                 SelectedItem = _dayScheduleViewModel.SelectedItem;
                 SetPost(SelectedItem);
             }
-            MessageBox.Show("Test4");
         }
 
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            MessageBox.Show("Test2");
         }
     }
 }

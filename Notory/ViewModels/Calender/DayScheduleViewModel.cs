@@ -125,12 +125,9 @@ namespace Notory.ViewModels.Calender
             {
                 if (sender is CalendarPost calendarPost)
                 {
-                   _selectedItem = calendarPost.Id; // Direkt zuweisen
+                   _selectedItem = calendarPost.Id; 
                 }
                 SelectedItem = _selectedItem;
-                Console.WriteLine(SelectedItem.ToString());
-                MessageBox.Show("Test1");
-
             }
       }
 

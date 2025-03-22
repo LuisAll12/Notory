@@ -81,7 +81,7 @@ namespace Notory.ViewModels.Calender
 
             DateTime firstDayOfMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
             int startDay = (int)firstDayOfMonth.DayOfWeek;
-            if (startDay == 0) startDay = 7; // Sonntag auf 7 setzen
+            if (startDay == 0) startDay = 7;
 
             int daysInMonth = DateTime.DaysInMonth(CurrentDate.Year, CurrentDate.Month);
             int totalCells = 6 * 7;

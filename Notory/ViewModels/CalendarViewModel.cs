@@ -70,7 +70,6 @@ namespace Notory.ViewModels
         private void PostVM_Propertychanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             PostVM.SetPost((int)sender);
-            Console.WriteLine("Test3");
         }
     }
 }
