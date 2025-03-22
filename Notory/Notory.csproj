@@ -187,6 +187,9 @@
     <Compile Include="Views\DayScheduleView.xaml.cs">
       <DependentUpon>DayScheduleView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NewCalendarPost_Window.xaml.cs">
+      <DependentUpon>NewCalendarPost_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NoteEditorView.xaml.cs">
       <DependentUpon>NoteEditorView.xaml</DependentUpon>
     </Compile>
@@ -235,6 +238,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\NewCalendarPost_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\NoteEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

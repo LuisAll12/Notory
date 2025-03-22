@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\App.xaml
-10-839447484
+112003312121
 
-26-234028672
+27-278466849
 143-327047811
-Styles\Colors.xaml;Styles\Controls.xaml;Styles\Typography.xaml;Views\CalendarEditPanel.xaml;Views\CalendarView.xaml;Views\DayScheduleView.xaml;Views\MainWindow.xaml;Views\NoteEditorView.xaml;Views\NotesView.xaml;Views\PostView.xaml;
+Styles\Colors.xaml;Styles\Controls.xaml;Styles\Typography.xaml;Views\CalendarEditPanel.xaml;Views\CalendarView.xaml;Views\DayScheduleView.xaml;Views\MainWindow.xaml;Views\NewCalendarPost_Window.xaml;Views\NoteEditorView.xaml;Views\NotesView.xaml;Views\PostView.xaml;
 
-False
+True
 

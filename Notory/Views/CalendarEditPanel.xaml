@@ -83,7 +83,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         ToolTip="Neuen Eintrag hinzufügen"
-                        Command="{Binding NewPostCommand}">
+                        Command="{Binding OpenWindow_NewPostCommand}">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Template">

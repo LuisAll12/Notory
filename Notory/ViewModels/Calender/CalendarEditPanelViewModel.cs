@@ -58,7 +58,7 @@ namespace Notory.ViewModels.Calender
         public ICommand PrevMonthCommand { get; }
         public ICommand NextMonthCommand { get; }
         public ICommand DayButtonClickCommand { get; }
-        public ICommand NewPostCommand { get; }
+        public ICommand OpenWindow_NewPostCommand { get; }
 
         public CalendarEditPanelViewModel()
         {
@@ -74,7 +74,7 @@ namespace Notory.ViewModels.Calender
             PrevMonthCommand = new RelayCommand(PrevMonth);
             NextMonthCommand = new RelayCommand(NextMonth);
             DayButtonClickCommand = new RelayCommand(DayButtonClick);
-            NewPostCommand = new RelayCommand(NewCalendarPost);
+            OpenWindow_NewPostCommand = new RelayCommand(OpenWindow_NewCalendarPost);
 
             // Aktualisiere den Kalender
             UpdateCalendar();
@@ -168,7 +168,7 @@ namespace Notory.ViewModels.Calender
             PropertyChanged?.Invoke(SelectedDate, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void NewCalendarPost()
+        private void OpenWindow_NewCalendarPost()
         {
             Console.WriteLine("Test1");
             // Open Window
