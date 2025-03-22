@@ -1,15 +1,19 @@
-﻿using Notory.Helpers;
+﻿using MongoDB.Bson.Serialization.Serializers;
+using Notory.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using MongoDB.Bson;
+
 
 namespace Notory.ViewModels.Calender
 {
     public class CalendarEditPanelViewModel : INotifyPropertyChanged
     {
+        public MongoDBService mongodb { get; set; }
 
         private DateTime _currentDate = DateTime.Now;
         private DateTime _selectedDate;
@@ -54,12 +58,14 @@ namespace Notory.ViewModels.Calender
         public ICommand PrevMonthCommand { get; }
         public ICommand NextMonthCommand { get; }
         public ICommand DayButtonClickCommand { get; }
+        public ICommand NewPostCommand { get; }
 
         public CalendarEditPanelViewModel()
         {
             // Initialisiere CalendarDays
             CalendarDays = new ObservableCollection<CalendarDay>();
-
+            // Initialize MongoDBService
+            mongodb = new MongoDBService();
             // Setze das aktuelle Datum
             CurrentDate = DateTime.Now;
             SelectedDate = CurrentDate;
@@ -68,6 +74,7 @@ namespace Notory.ViewModels.Calender
             PrevMonthCommand = new RelayCommand(PrevMonth);
             NextMonthCommand = new RelayCommand(NextMonth);
             DayButtonClickCommand = new RelayCommand(DayButtonClick);
+            NewPostCommand = new RelayCommand(NewCalendarPost);
 
             // Aktualisiere den Kalender
             UpdateCalendar();
@@ -159,6 +166,20 @@ namespace Notory.ViewModels.Calender
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(SelectedDate, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void NewCalendarPost()
+        {
+            Console.WriteLine("Test1");
+            // Open Window
+            var document = new BsonDocument
+            {
+                {"Title", "Exam.net downloaded" },
+                {"Date", "19.06.2020" },
+                {"Text", "Blablabla bliblibliblibli, hubububububububububububububuububub, linganguliguligu niwapa linganggu linganggu" }
+            };
+            //Send Data to MongoDB
+            mongodb.SetPost(document);
         }
     }
 
