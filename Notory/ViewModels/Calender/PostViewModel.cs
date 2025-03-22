@@ -1,10 +1,12 @@
 ﻿using Notory.Helpers;
+using Notory.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Linq;
 
 namespace Notory.ViewModels.Calender
 {
@@ -38,6 +40,9 @@ namespace Notory.ViewModels.Calender
         public void SetPost(int sender)
         {
             SelectedItem = sender;
+
+            CalendarPost post = _dayScheduleViewModel.Entries.FirstOrDefault(p => p.Id == SelectedItem);
+            if (post != null) { Console.WriteLine("True"); }else { Console.WriteLine("False"); }
         }
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnDayScheduleViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
