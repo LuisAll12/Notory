@@ -56,8 +56,8 @@ namespace Notory.ViewModels
             PostVM = new PostViewModel(DaySceduleVM);
             DaySceduleVM.PropertyChanged += PostVM_Propertychanged;
 
-            CalendarEditPanelVM = EditPanelVM;
 
+            CalendarEditPanelVM = EditPanelVM;
             DayScheduleView = DaySceduleVM;
             PostView = PostVM;
 

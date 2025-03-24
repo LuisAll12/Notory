@@ -70,3 +70,5 @@ C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\bin\Debug\Snappier.
 C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\bin\Debug\System.Security.AccessControl.xml
 C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\bin\Debug\System.Security.Principal.Windows.xml
 C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\bin\Debug\System.Text.Encoding.CodePages.xml
+C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\obj\Debug\Views\NewCalendarPost_Window.g.cs
+C:\Users\41783\OneDrive - sluz\Luis_Own\Coding\Notory\Notory\obj\Debug\Views\NewCalendarPost_Window.baml

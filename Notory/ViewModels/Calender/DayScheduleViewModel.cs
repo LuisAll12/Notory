@@ -15,7 +15,7 @@ using System.Windows.Input;
 
 namespace Notory.ViewModels.Calender
 {
-      public class DayScheduleViewModel : INotifyPropertyChanged
+      public class DayScheduleViewModel 
       {
             private int _selectedItem;
             public int SelectedItem
@@ -53,7 +53,7 @@ namespace Notory.ViewModels.Calender
             public DayScheduleViewModel(CalendarEditPanelViewModel calendarEditPanelViewModel)
             {
                   _calendarEditPanelViewModel = calendarEditPanelViewModel;
-
+                  
                   // Initialisiere die Entries-Collection
                   Entries = new ObservableCollection<CalendarPost>();
 
@@ -113,6 +113,19 @@ namespace Notory.ViewModels.Calender
                 {
                     Entries.Add(entry);
                 }
+                // Jetzt ist die Liste ready → ViewModels können reagieren
+                OnPropertyChanged(nameof(Entries));
+
+                // Wenn du willst, kannst du den zuletzt gewählten Eintrag wieder selektieren
+                // oder bewusst SelectedItem resetten
+                if (Entries.Any(e => e.Id == SelectedItem))
+                {
+                    SelectedItem = SelectedItem; // Triggert PropertyChanged nochmal
+                }
+                else
+                {
+                    SelectedItem = 0; // Reset
+                }
             }
 
 
@@ -123,11 +136,14 @@ namespace Notory.ViewModels.Calender
             }
             private void DayItem_Click(object sender)
             {
+                Console.WriteLine("DayItemClick");
                 if (sender is CalendarPost calendarPost)
-                {
-                   _selectedItem = calendarPost.Id; 
-                }
-                SelectedItem = _selectedItem;
+                    {
+                        SelectedItem = calendarPost.Id; 
+                    }
+
+
+                //_postViewModel.SetPost(SelectedItem);
             }
       }
 

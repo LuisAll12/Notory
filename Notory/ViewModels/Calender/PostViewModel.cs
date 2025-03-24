@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Notory.ViewModels.Calender
 {
-    internal class PostViewModel : INotifyPropertyChanged
+    public class PostViewModel : INotifyPropertyChanged
     {
         private int _selectedItem;
 
@@ -27,6 +27,19 @@ namespace Notory.ViewModels.Calender
                 }
             }
         }
+        private CalendarPost _selectedPost;
+        public CalendarPost SelectedPost
+        {
+            get => _selectedPost;
+            set
+            {
+                if (_selectedPost != value)
+                {
+                    _selectedPost = value;
+                    OnPropertyChanged(nameof(SelectedPost));
+                }
+            }
+        }
 
         private readonly DayScheduleViewModel _dayScheduleViewModel;
 
@@ -39,20 +52,33 @@ namespace Notory.ViewModels.Calender
         }
         public void SetPost(int sender)
         {
+            Console.WriteLine("SetPost");
             SelectedItem = sender;
-
-            CalendarPost post = _dayScheduleViewModel.Entries.FirstOrDefault(p => p.Id == SelectedItem);
-            if (post != null) { Console.WriteLine("True"); }else { Console.WriteLine("False"); }
+            Console.WriteLine(sender);
+            var post = _dayScheduleViewModel.Entries.FirstOrDefault(p => p.Id == SelectedItem);
+            if (post != null)
+            {
+                SelectedPost = post;
+                Console.WriteLine(SelectedPost.Title);
+            }
+            else
+            {
+                SelectedPost = null;
+                Console.WriteLine("False");
+            }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnDayScheduleViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(DayScheduleViewModel.SelectedItem))
-            {
-                // Aktualisiere FilterDate, wenn sich SelectedDate ändert
-                SelectedItem = _dayScheduleViewModel.SelectedItem;
-                SetPost(SelectedItem);
-            }
+            //if (e.PropertyName == nameof(DayScheduleViewModel.SelectedItem))
+            //{
+            //    // Aktualisiere FilterDate, wenn sich SelectedDate ändert
+            //    SelectedItem = _dayScheduleViewModel.SelectedItem;
+            //    SetPost(SelectedItem);
+            //}
+            SelectedItem = _dayScheduleViewModel.SelectedItem;
+            SetPost(SelectedItem);
         }
 
         protected void OnPropertyChanged(string propertyName)
