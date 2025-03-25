@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Notory.Views"
+             xmlns:helpers="clr-namespace:Notory.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -80,25 +81,71 @@
             <!-- ToolBarTray mit verbessertem Design -->
             <ToolBarTray DockPanel.Dock="Top" Background="#25252d">
                 <ToolBar>
-                    <ComboBox x:Name="FontFamilyComboBox" Width="120" SelectionChanged="FontFamilyComboBox_SelectionChanged" Background="#25252d" BorderBrush="#fff" Foreground="White"/>
-                    <ComboBox x:Name="FontSizeComboBox" Width="50" SelectionChanged="FontSizeComboBox_SelectionChanged" Background="#25252d" BorderBrush="#fff" Foreground="White"/>
-                    <Button x:Name="BoldButton" Click="BoldButton_Click" Content="B" FontWeight="Bold" Foreground="White" />
-                    <Button x:Name="ItalicButton" Click="ItalicButton_Click" Content="I" FontStyle="Italic" Foreground="White"/>
-                    <Button x:Name="UnderLineButton" Click="UnderlineButton_Click" Content="U" Foreground="White"/>
-                    <Button Click="ForegroundColorButton_Click" Content="Text Color" Foreground="White"/>
-                    <Button Click="BackgroundColorButton_Click" Content="Background Color" Foreground="White"/>
-                    <Button Click="CheckboxButton_Click" Content="Checkbox" Foreground="White"/>
-                    <Button Click="BulletListButton_Click" Content="•" Foreground="White"/>
-                    <Button Click="NumberedListButton_Click" Content="1." Foreground="White"/>
+                    <ComboBox x:Name="FontFamilyComboBox" 
+                              ItemsSource="{Binding FontFamilies}" 
+                              SelectedItem="{Binding SelectedFontFamily, Mode=TwoWay}"
+                              Width="120" 
+                              SelectionChanged="FontFamilyComboBox_SelectionChanged" 
+                              Background="#25252d" 
+                              BorderBrush="#fff" 
+                              Foreground="White" />
+
+                    <ComboBox x:Name="FontSizeComboBox" 
+                              ItemsSource="{Binding FontSizes}" 
+                              SelectedItem="{Binding SelectedFontSize, Mode=TwoWay}"
+                              Width="50" 
+                              SelectionChanged="FontSizeComboBox_SelectionChanged" 
+                              Background="#25252d" 
+                              BorderBrush="#fff" 
+                              Foreground="White" />
+
+                    <Button x:Name="BoldButton" 
+                            Click="BoldButton_Click" 
+                            Content="B" 
+                            FontWeight="Bold" 
+                            Foreground="White" />
+
+                    <Button x:Name="ItalicButton" 
+                            Click="ItalicButton_Click" 
+                            Content="I" 
+                            FontStyle="Italic" 
+                            Foreground="White"/>
+
+                    <Button x:Name="UnderLineButton" 
+                            Click="UnderlineButton_Click" 
+                            Content="U" 
+                            Foreground="White"/>
+
+                    <Button Command="{Binding ForegroundColorCommand}" 
+                            CommandParameter="{Binding ElementName=Editor, Path=Selection}"
+                            Content="Text Color" 
+                            Foreground="White"/>
+
+                    <Button Command="{Binding BackgroundColorCommand}" 
+                            CommandParameter="{Binding ElementName=Editor, Path=Selection}"
+                            Content="Background Color" 
+                            Foreground="White"/>
+
+                    <Button Click="CheckboxButton_Click" 
+                            Content="Checkbox" 
+                            Foreground="White"/>
+
+                    <Button Command="{Binding BulletListCommand}" 
+                            Content="•" 
+                            Foreground="White"/>
+
+                    <Button Command="{Binding NumberedListCommand}" 
+                            Content="1." 
+                            Foreground="White"/>
                 </ToolBar>
             </ToolBarTray>
             <Button x:Name="OptionsButton" Content="..." VerticalAlignment="Center" Margin="10 0 0 0" Padding="10" Height="21" Width="24">
                 <Button.ContextMenu>
                     <!-- ContextMenu with three buttons -->
                     <ContextMenu>
-                        <MenuItem Header="Save" Click="Save_Click" />
-                        <MenuItem Header="Delete" Click="Delete_Click" />
-                        <MenuItem Header="Cancel" Click="Cancel_Click" />
+                        <MenuItem Header="Save" Command="{Binding SaveCommand}" />
+                        <MenuItem Header="Delete" Command="{Binding DeleteCommand}" />
+                        <MenuItem Header="Cancel" Command="{Binding CancelCommand}" />
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -107,7 +154,10 @@
         <!-- Ersetzen Sie das StackPanel durch ein DockPanel -->
         <DockPanel Grid.Row="1">
             <!-- RichTextBox für den Editor -->
-            <RichTextBox x:Name="Editor" Background="#25252d" Foreground="White" />
+            <RichTextBox x:Name="Editor" 
+                 helpers:RichTextBoxHelper.Document="{Binding Document, Mode=TwoWay}"
+                 Background="#25252d" 
+                 Foreground="White" />
         </DockPanel>
     </Grid>
 </UserControl>
