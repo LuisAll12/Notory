@@ -30,8 +30,6 @@ namespace Notory.ViewModels.Calender
             UnderlineCommand = new RelayCommand(ExecuteUnderline);
             FontFamilyCommand = new RelayCommand(ExecuteFontFamily);
             FontSizeCommand = new RelayCommand(ExecuteFontSize);
-            ForegroundColorCommand = new RelayCommand(ExecuteForegroundColor);
-            BackgroundColorCommand = new RelayCommand(ExecuteBackgroundColor);
             CheckboxCommand = new RelayCommand(ExecuteCheckbox);
             BulletListCommand = new RelayCommand(ExecuteBulletList);
             NumberedListCommand = new RelayCommand(ExecuteNumberedList);
@@ -88,8 +86,6 @@ namespace Notory.ViewModels.Calender
         public ICommand UnderlineCommand { get; }
         public ICommand FontFamilyCommand { get; }
         public ICommand FontSizeCommand { get; }
-        public ICommand ForegroundColorCommand { get; }
-        public ICommand BackgroundColorCommand { get; }
         public ICommand CheckboxCommand { get; }
         public ICommand BulletListCommand { get; }
         public ICommand NumberedListCommand { get; }
@@ -154,22 +150,6 @@ namespace Notory.ViewModels.Calender
             if (parameter is Tuple<TextSelection, double> args)
             {
                 args.Item1.ApplyPropertyValue(TextElement.FontSizeProperty, args.Item2);
-            }
-        }
-
-        private void ExecuteForegroundColor(object parameter)
-        {
-            if (parameter is Tuple<TextSelection, System.Windows.Media.Color> args)
-            {
-                args.Item1.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(args.Item2));
-            }
-        }
-
-        private void ExecuteBackgroundColor(object parameter)
-        {
-            if (parameter is Tuple<TextSelection, System.Windows.Media.Color> args)
-            {
-                args.Item1.ApplyPropertyValue(TextElement.BackgroundProperty, new SolidColorBrush(args.Item2));
             }
         }
 
@@ -263,6 +243,8 @@ namespace Notory.ViewModels.Calender
         {
             var post = _dayScheduleViewModel.Entries.FirstOrDefault(p => p.Id == sender);
             SelectedPost = post ?? null;
+
+            Console.WriteLine(sender);
         }
 
         private void OnDayScheduleViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

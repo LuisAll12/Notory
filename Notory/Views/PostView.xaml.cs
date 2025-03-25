@@ -62,34 +62,35 @@ namespace Notory.Views
 
         private void ForegroundColorButton_Click(object sender, RoutedEventArgs e)
         {
-            var colorDialog = new ColorDialog();
-            if (colorDialog.ShowDialog() == DialogResult.OK)
+            var colorDialog = new System.Windows.Forms.ColorDialog();
+            if (colorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                // Aktuelle Auswahl erfassen
-                var selection = Editor.Selection;
-                var color = System.Windows.Media.Color.FromArgb(
+                var wpfColor = System.Windows.Media.Color.FromArgb(
                     colorDialog.Color.A,
                     colorDialog.Color.R,
                     colorDialog.Color.G,
                     colorDialog.Color.B);
-                var vm = DataContext as PostViewModel;
-                vm?.ForegroundColorCommand.Execute(new Tuple<TextSelection, System.Windows.Media.Color>(selection, color));
+
+                Editor.Selection.ApplyPropertyValue(
+                    TextElement.ForegroundProperty,
+                    new SolidColorBrush(wpfColor));
             }
         }
 
         private void BackgroundColorButton_Click(object sender, RoutedEventArgs e)
         {
-            var colorDialog = new ColorDialog();
-            if (colorDialog.ShowDialog() == DialogResult.OK)
+            var colorDialog = new System.Windows.Forms.ColorDialog();
+            if (colorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                var selection = Editor.Selection;
-                var color = System.Windows.Media.Color.FromArgb(
+                var wpfColor = System.Windows.Media.Color.FromArgb(
                     colorDialog.Color.A,
                     colorDialog.Color.R,
                     colorDialog.Color.G,
                     colorDialog.Color.B);
-                var vm = DataContext as PostViewModel;
-                vm?.BackgroundColorCommand.Execute(new Tuple<TextSelection, System.Windows.Media.Color>(selection, color));
+
+                Editor.Selection.ApplyPropertyValue(
+                    TextElement.BackgroundProperty,
+                    new SolidColorBrush(wpfColor));
             }
         }
 

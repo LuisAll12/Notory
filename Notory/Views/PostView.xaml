@@ -116,13 +116,11 @@
                             Content="U" 
                             Foreground="White"/>
 
-                    <Button Command="{Binding ForegroundColorCommand}" 
-                            CommandParameter="{Binding ElementName=Editor, Path=Selection}"
+                    <Button Click="ForegroundColorButton_Click" 
                             Content="Text Color" 
                             Foreground="White"/>
 
-                    <Button Command="{Binding BackgroundColorCommand}" 
-                            CommandParameter="{Binding ElementName=Editor, Path=Selection}"
+                    <Button Click="BackgroundColorButton_Click" 
                             Content="Background Color" 
                             Foreground="White"/>
 
