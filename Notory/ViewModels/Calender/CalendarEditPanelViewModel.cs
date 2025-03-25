@@ -179,7 +179,7 @@ namespace Notory.ViewModels.Calender
                 {"Text", "Blablabla bliblibliblibli, hubububububububububububububuububub, linganguliguligu niwapa linganggu linganggu" }
             };
             //Send Data to MongoDB
-            mongodb.SetPost(document);
+            //mongodb.SetPost(document);
         }
     }
 

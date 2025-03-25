@@ -3,10 +3,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using Notory.Helpers;
 using Notory.Models;
 
@@ -17,12 +20,15 @@ namespace Notory.ViewModels.Calender
         private int _selectedItem;
         private CalendarPost _selectedPost;
         private readonly DayScheduleViewModel _dayScheduleViewModel;
+        private readonly MongoDBService _mongoDBService;
         private FlowDocument _document = new FlowDocument();
 
         public PostViewModel(DayScheduleViewModel dayScheduleViewModel)
         {
             _dayScheduleViewModel = dayScheduleViewModel;
             _dayScheduleViewModel.PropertyChanged += OnDayScheduleViewModelPropertyChanged;
+
+            _mongoDBService = new MongoDBService();
 
             // Initialize Commands
             BoldCommand = new RelayCommand(ExecuteBold);
@@ -184,21 +190,26 @@ namespace Notory.ViewModels.Calender
 
         private void ExecuteSave(object parameter)
         {
-            if (parameter is string filePath && !string.IsNullOrEmpty(filePath))
+            try
             {
-                try
+                // Text als XAML-Format extrahieren
+                var range = new TextRange(Document.ContentStart, Document.ContentEnd);
+                using (var stream = new MemoryStream())
                 {
-                    var range = new TextRange(Document.ContentStart, Document.ContentEnd);
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        range.Save(stream, DataFormats.Xaml);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error saving file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    range.Save(stream, DataFormats.Xaml);
+                    string xamlText = Encoding.UTF8.GetString(stream.ToArray());
+
+
+
+                    _mongoDBService.SavePost(xamlText, SelectedPost);
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            Console.WriteLine("All good");
+            
         }
 
         private void ExecuteDelete(object parameter)
