@@ -112,15 +112,6 @@ namespace Notory.ViewModels.Calender
             }
         }
 
-        private void ToggleBold(TextSelection selection)
-        {
-            var currentWeight = selection.GetPropertyValue(TextElement.FontWeightProperty);
-            var newWeight = currentWeight is FontWeight weight && weight == FontWeights.Bold
-                ? FontWeights.Normal
-                : FontWeights.Bold;
-            selection.ApplyPropertyValue(TextElement.FontWeightProperty, newWeight);
-        }
-
         private void ExecuteItalic(object parameter)
         {
             if (parameter is TextSelection selection)
@@ -250,12 +241,70 @@ namespace Notory.ViewModels.Calender
             }
         }
 
-        public void SetPost(int sender)
+        public async void SetPost(int sender)
         {
-            var post = _dayScheduleViewModel.Entries.FirstOrDefault(p => p.Id == sender);
-            SelectedPost = post ?? null;
+            try
+            {
+                var post = _dayScheduleViewModel?.Entries?.FirstOrDefault(p => p?.Id == sender);
+                if (post == null)
+                {
+                    Console.WriteLine($"Post mit ID {sender} nicht in lokaler Liste gefunden");
+                    return;
+                }
 
-            Console.WriteLine(sender);
+                SelectedPost = post;
+
+                if (string.IsNullOrWhiteSpace(SelectedPost.MongoId))
+                {
+                    Console.WriteLine("MongoId ist null oder leer");
+                    return;
+                }
+
+                CalendarPost mongoPost = await _mongoDBService.GetPost(SelectedPost.MongoId);
+                if (mongoPost == null)
+                {
+                    Console.WriteLine($"Post mit MongoId {SelectedPost.MongoId} nicht in DB gefunden");
+                    return;
+                }
+
+                var flowDoc = ConvertXamlToFlowDocument(mongoPost.Content);
+                if (flowDoc != null)
+                {
+                    Document = flowDoc;
+                }
+                else
+                {
+                    Console.WriteLine("Konvertierung zu FlowDocument fehlgeschlagen");
+                    Document = new FlowDocument();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler in SetPost: {ex.Message}");
+                Document = new FlowDocument();
+            }
+        }
+
+        private FlowDocument ConvertXamlToFlowDocument(string xamlContent)
+        {
+            if (string.IsNullOrWhiteSpace(xamlContent))
+                return new FlowDocument();
+
+            try
+            {
+                var flowDoc = new FlowDocument();
+                var range = new TextRange(flowDoc.ContentStart, flowDoc.ContentEnd);
+
+                using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(xamlContent)))
+                {
+                    range.Load(stream, DataFormats.Xaml);
+                }
+                return flowDoc;
+            }
+            catch
+            {
+                return new FlowDocument();
+            }
         }
 
         private void OnDayScheduleViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

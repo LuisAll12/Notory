@@ -17,6 +17,8 @@ namespace Notory.Models
         public string Title { get; set; }
         public string Subtitle { get; set; }
         public string BackgroundColor { get; set; }
+
+        public string Content { get; set; }
         public int Duration
         {
             get
