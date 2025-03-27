@@ -44,6 +44,8 @@ namespace Notory.ViewModels.Calender
                     }
                 }
             }
+            
+            private readonly MongoDBService _mongoDBService;
             public ICommand DayItemClickCommand { get; }
 
             public ObservableCollection<CalendarPost> Entries { get; set; }
@@ -54,6 +56,7 @@ namespace Notory.ViewModels.Calender
             {
                   _calendarEditPanelViewModel = calendarEditPanelViewModel;
                   
+                  _mongoDBService = new MongoDBService();
                   // Initialisiere die Entries-Collection
                   Entries = new ObservableCollection<CalendarPost>();
 
@@ -84,7 +87,7 @@ namespace Notory.ViewModels.Calender
                 ApplyFilterDate(FilterDate);
             }
 
-            public void ApplyFilterDate(DateTime input)
+            public async void ApplyFilterDate(DateTime input)
             {
                 FilterDate = input;
                 
@@ -103,9 +106,12 @@ namespace Notory.ViewModels.Calender
                         new CalendarPost {MongoId= "67e32f04fa736c5b396d0d0a",Id = 11, Date = new DateTime(2025, 3, 17), TimeFrom = "20:00", TimeTo = "20:30", Title = "", Subtitle = "" , BackgroundColor = "#000"}
                     };
 
+
+                entries = await _mongoDBService.LoadEntries();
+
                 var filteredEntries = entries
                     .Where(e => e.Date.Date == FilterDate.Date)
-                    .OrderBy(e => DateTime.Parse(e.TimeFrom))
+                    .OrderBy(e => string.IsNullOrEmpty(e.TimeFrom) ? DateTime.MinValue : DateTime.Parse(e.TimeFrom))
                     .ToList();
 
                 Entries.Clear();
@@ -143,7 +149,7 @@ namespace Notory.ViewModels.Calender
                     }
 
 
-                //_postViewModel.SetPost(SelectedItem);
+               //_mongoDBService.GetPost(SelectedItem.MongoId);
             }
       }
 

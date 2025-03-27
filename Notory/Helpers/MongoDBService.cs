@@ -33,7 +33,7 @@ namespace Notory.Helpers
             }
         }
 
-        public void SetPost(BsonDocument document, CalendarPost SelectedPost)
+        public void SetPost(BsonDocument document)
         {
             var client = new MongoClient(connectionString);
 
@@ -41,12 +41,18 @@ namespace Notory.Helpers
 
             var collection = database.GetCollection<BsonDocument>("CalendarPost");
 
-            //document = new BsonDocument
-            //{
-            //    {"Title",  SelectedPost.Title },
-            //    {"Date", "19.06.2020" },
-            //    {"Text", "Blablabla bliblibliblibli, hubububububububububububububuububub, linganguliguligu niwapa linganggu linganggu" }
-            //};
+            document = new BsonDocument
+            {
+                { "Id", 13 },
+                { "Date", "27.03.2025" },
+                { "TimeFrom", "10:00" },
+                { "TimeTo", "11:00" },
+                { "Title", "Team Meeting" },
+                { "Subtitle", "Weekly sync-up" },
+                { "BackgroundColor", "#ff5733" },
+                { "Content", "Discuss project progress and upcoming tasks." }
+            };
+
 
             collection.InsertOne(document);
             Console.WriteLine("Dokument eingeführt");
@@ -144,6 +150,45 @@ namespace Notory.Helpers
                     Console.WriteLine($"Inner Exception: {ex.InnerException.Message}");
                 }
                 return null;
+            }
+        }
+        public async Task<ObservableCollection<CalendarPost>> LoadEntries()
+        {
+            try
+            {
+                var client = new MongoClient(connectionString);
+                var database = client.GetDatabase("Notory");
+                var collection = database.GetCollection<BsonDocument>("CalendarPost");
+
+                var documents = await collection.Find(new BsonDocument()).ToListAsync();
+
+                var entries = new ObservableCollection<CalendarPost>(
+                    documents.Select(doc => new CalendarPost
+                    {
+                        MongoId = doc["_id"].ToString(),
+                        Id = doc.Contains("Id") ? doc["Id"].ToInt32() : 0,
+                        Title = doc.Contains("Title") ? doc["Title"].AsString : string.Empty,
+                        Date = doc.Contains("Date") ? DateTime.Parse(doc["Date"].AsString) : DateTime.MinValue,
+                        TimeFrom = doc.Contains("TimeFrom") && !doc["TimeFrom"].IsBsonNull ? doc["TimeFrom"].AsString : "00:00",
+                        TimeTo = doc.Contains("TimeTo") && !doc["TimeTo"].IsBsonNull ? doc["TimeTo"].AsString : "00:00",
+                        Content = doc.Contains("Text") ? doc["Text"].AsString : string.Empty,
+                        BackgroundColor = doc["BackgroundColor"].ToString()
+                    })) ;
+
+                Console.WriteLine($"Successfully loaded {entries.Count} entries");
+
+                // Aktualisiere die Property UND gebe die Einträge zurück
+                Entries = entries;
+                return entries;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading entries: {ex.Message}");
+
+                // Fallback: Leere Collection zurückgeben
+                var emptyCollection = new ObservableCollection<CalendarPost>();
+                Entries = emptyCollection;
+                return emptyCollection;
             }
         }
     }
